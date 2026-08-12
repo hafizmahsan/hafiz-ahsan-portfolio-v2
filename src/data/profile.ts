@@ -1,54 +1,38 @@
 export const profile = {
-  name: "Hafiz Mohammad Ahsan",
-
-  shortName: "Hafiz Ahsan",
+  name: "Hafiz Ahsan",
 
   role: "Senior RPA Consultant & Solution Architect",
 
-  location: "Saudi Arabia",
+  location: "Jeddah, Saudi Arabia",
 
-  experience: "6+ years",
-
-  availability: "Open to selected opportunities",
-
-  tagline: "Building systems that work smarter.",
-
-  introduction:
-    "Senior RPA Consultant and Solution Architect specializing in enterprise automation, process optimization, system integration and scalable digital solutions.",
-
-  about:
-    "I am an IT professional with more than six years of experience across enterprise automation, RPA development, consulting and solution architecture. My career has taken me from software and automation delivery into designing and supporting solutions for large enterprise environments.",
-
-  philosophy:
-    "Automation should not simply remove repetitive work. It should create dependable systems that connect people, processes and technology while producing measurable business value.",
-
-  focusAreas: [
-    "Robotic Process Automation",
-    "Solution Architecture",
-    "Enterprise Automation",
-    "Process Optimization",
-    "API & System Integration",
-    "Digital Transformation",
-  ],
-
-  social: {
-    github: "https://github.com/hafizmahsan",
-    linkedin: "https://www.linkedin.com/",
-  },
-
-  contact: {
-    email: "hello@example.com",
-  },
+  availability: "Open to strategic opportunities",
 
   hero: {
-    eyebrow: "AUTOMATION · ARCHITECTURE · ENGINEERING",
+    eyebrow: "Senior RPA Consultant · Solution Architect",
 
-    title: "Building systems",
-
-    titleAccent: "that work smarter.",
+    title: "Automate.",
+    titleAccent: "Architect. Engineer.",
 
     description:
-      "Senior RPA Consultant and Solution Architect specializing in enterprise automation, process optimization and scalable digital solutions.",
+      "IT professional with 6+ years of experience designing enterprise automation, RPA solutions and scalable digital workflows across banking, telecom and insurance environments.",
+  },
+
+  about: {
+    label: "About me",
+
+    title: "Building automation systems that turn complexity into clarity.",
+
+    description:
+      "I specialize in enterprise automation, RPA development and solution architecture. My experience spans the full delivery lifecycle — from process discovery and development to architecture, deployment, optimization and production support.",
+
+    highlights: [
+      "6+ years in enterprise IT and automation",
+      "RPA development and solution architecture",
+      "Enterprise process automation",
+      "Production-grade automation delivery",
+      "Cross-functional and client-facing consulting",
+      "Experience across telecom, banking and insurance environments",
+    ],
   },
 
   stats: [
@@ -58,15 +42,28 @@ export const profile = {
     },
     {
       value: "RPA",
-      label: "Core Expertise",
+      label: "Core specialization",
     },
     {
-      value: "SA",
-      label: "Solution Architecture",
+      value: "5+",
+      label: "Enterprise environments",
     },
     {
-      value: "Enterprise",
-      label: "Delivery Experience",
+      value: "24/7",
+      label: "Automation mindset",
     },
   ],
+
+  contact: {
+    title: "Have a process worth automating?",
+
+    description:
+      "Let's discuss how automation, better architecture and intelligent workflows can create measurable business value.",
+
+    email: "your.email@example.com",
+
+    linkedin: "https://www.linkedin.com/in/your-profile",
+
+    github: "https://github.com/your-username",
+  },
 } as const;
