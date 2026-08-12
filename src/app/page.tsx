@@ -5,32 +5,26 @@ import { Footer } from "@/components/footer";
 import { Hero } from "@/components/hero";
 import { Navbar } from "@/components/navbar";
 import { Projects } from "@/components/projects";
-import { Skills } from "@/components/skills";
 import { ScrollProgress } from "@/components/scroll-progress";
+import { Skills } from "@/components/skills";
 
 export default function Home() {
   return (
-    <main
-      id="top"
-      className="relative min-h-screen overflow-x-clip"
-    >
+    <>
       <ScrollProgress />
 
       <Navbar />
 
-      <Hero />
-
-      <About />
-
-      <Skills />
-
-      <Experience />
-
-      <Projects />
-
-      <Contact />
+      <main id="top">
+        <Hero />
+        <About />
+        <Skills />
+        <Experience />
+        <Projects />
+        <Contact />
+      </main>
 
       <Footer />
-    </main>
+    </>
   );
 }
