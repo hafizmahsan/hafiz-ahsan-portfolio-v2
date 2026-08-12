@@ -1,62 +1,41 @@
 @import "tailwindcss";
 
+@theme {
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-mono), ui-monospace, SFMono-Regular, Menlo, Monaco,
+    Consolas, "Liberation Mono", "Courier New", monospace;
+
+  --color-background: #07090d;
+  --color-background-soft: #0a0d12;
+
+  --color-foreground: #f4f7fb;
+  --color-foreground-muted: #a8b1bf;
+  --color-foreground-subtle: #697586;
+
+  --color-border: rgba(255, 255, 255, 0.075);
+  --color-border-strong: rgba(255, 255, 255, 0.13);
+
+  --color-card: rgba(255, 255, 255, 0.025);
+  --color-card-hover: rgba(255, 255, 255, 0.045);
+
+  --color-primary: #22d3ee;
+  --color-primary-bright: #67e8f9;
+
+  --color-secondary: #8b5cf6;
+
+  --color-success: #34d399;
+
+  --animate-pulse-soft: pulse-soft 2.4s ease-in-out infinite;
+}
+
 :root {
-  --background: #07090d;
-  --background-soft: #0a0d12;
-
-  --foreground: #f4f7fb;
-  --foreground-muted: #9aa6b5;
-  --foreground-subtle: #657184;
-
-  --border: rgba(148, 163, 184, 0.12);
-  --border-strong: rgba(148, 163, 184, 0.2);
-
-  --primary: #22d3ee;
-  --primary-bright: #67e8f9;
-  --primary-dark: #0891b2;
-
-  --secondary: #a78bfa;
-  --success: #34d399;
-
-  --card: rgba(255, 255, 255, 0.025);
-  --card-hover: rgba(255, 255, 255, 0.04);
-
-  --selection: rgba(34, 211, 238, 0.22);
-}
-
-@theme inline {
-  --color-background: var(--background);
-  --color-background-soft: var(--background-soft);
-
-  --color-foreground: var(--foreground);
-  --color-foreground-muted: var(--foreground-muted);
-  --color-foreground-subtle: var(--foreground-subtle);
-
-  --color-border: var(--border);
-  --color-border-strong: var(--border-strong);
-
-  --color-primary: var(--primary);
-  --color-primary-bright: var(--primary-bright);
-  --color-primary-dark: var(--primary-dark);
-
-  --color-secondary: var(--secondary);
-  --color-success: var(--success);
-
-  --font-sans: var(--font-inter);
-  --font-mono: var(--font-mono);
-}
-
-/* -------------------------------------------------------
-   Base
-------------------------------------------------------- */
-
-* {
-  box-sizing: border-box;
+  color-scheme: dark;
+  background: #07090d;
 }
 
 html {
   scroll-behavior: smooth;
-  background: var(--background);
+  background: #07090d;
 }
 
 body {
@@ -65,73 +44,21 @@ body {
   overflow-x: hidden;
   background:
     radial-gradient(
-      circle at 50% -10%,
-      rgba(34, 211, 238, 0.055),
-      transparent 32rem
+      circle at 50% -20%,
+      rgba(34, 211, 238, 0.035),
+      transparent 38%
     ),
-    var(--background);
-  color: var(--foreground);
-  font-family: var(--font-inter), Arial, Helvetica, sans-serif;
+    #07090d;
+  color: #f4f7fb;
+  font-family: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 ::selection {
-  background: var(--selection);
-  color: #ffffff;
-}
-
-::placeholder {
-  color: var(--foreground-subtle);
-}
-
-/* -------------------------------------------------------
-   Scrollbar
-------------------------------------------------------- */
-
-html {
-  scrollbar-width: thin;
-  scrollbar-color: rgba(34, 211, 238, 0.3) transparent;
-}
-
-html::-webkit-scrollbar {
-  width: 7px;
-}
-
-html::-webkit-scrollbar-track {
-  background: transparent;
-}
-
-html::-webkit-scrollbar-thumb {
-  border-radius: 999px;
-  background: rgba(34, 211, 238, 0.25);
-}
-
-html::-webkit-scrollbar-thumb:hover {
-  background: rgba(34, 211, 238, 0.45);
-}
-
-/* -------------------------------------------------------
-   Typography
-------------------------------------------------------- */
-
-h1,
-h2,
-h3,
-h4,
-p {
-  margin: 0;
-}
-
-h1,
-h2,
-h3,
-h4 {
-  text-wrap: balance;
-}
-
-p {
-  text-wrap: pretty;
+  background: rgba(34, 211, 238, 0.22);
+  color: #f4f7fb;
 }
 
 a {
@@ -148,138 +75,90 @@ button {
   font: inherit;
 }
 
+img,
+svg,
+canvas {
+  max-width: 100%;
+}
+
+canvas {
+  display: block;
+}
+
 /* -------------------------------------------------------
-   Focus
+   Scrollbar
 ------------------------------------------------------- */
 
-:focus-visible {
-  outline: 2px solid var(--primary);
-  outline-offset: 3px;
+* {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(34, 211, 238, 0.25) transparent;
+}
+
+*::-webkit-scrollbar {
+  width: 7px;
+  height: 7px;
+}
+
+*::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+*::-webkit-scrollbar-thumb {
+  border-radius: 999px;
+  background: rgba(34, 211, 238, 0.2);
+}
+
+*::-webkit-scrollbar-thumb:hover {
+  background: rgba(34, 211, 238, 0.38);
 }
 
 /* -------------------------------------------------------
-   Utility classes
-------------------------------------------------------- */
-
-.font-mono {
-  font-family: var(--font-mono), monospace;
-}
-
-.text-balance {
-  text-wrap: balance;
-}
-
-.scrollbar-none {
-  scrollbar-width: none;
-}
-
-.scrollbar-none::-webkit-scrollbar {
-  display: none;
-}
-
-/* -------------------------------------------------------
-   Premium surface
-------------------------------------------------------- */
-
-.surface {
-  border: 1px solid var(--border);
-  background: var(--card);
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
-}
-
-.surface-hover {
-  transition:
-    border-color 300ms ease,
-    background-color 300ms ease,
-    transform 300ms ease;
-}
-
-.surface-hover:hover {
-  border-color: rgba(34, 211, 238, 0.15);
-  background: var(--card-hover);
-}
-
-/* -------------------------------------------------------
-   Grid background
+   Technical grid
 ------------------------------------------------------- */
 
 .grid-background {
   background-image:
     linear-gradient(
-      rgba(148, 163, 184, 0.045) 1px,
+      rgba(255, 255, 255, 0.035) 1px,
       transparent 1px
     ),
     linear-gradient(
       90deg,
-      rgba(148, 163, 184, 0.045) 1px,
+      rgba(255, 255, 255, 0.035) 1px,
       transparent 1px
     );
-  background-size: 44px 44px;
+  background-size: 56px 56px;
+  background-position: center center;
 }
 
 /* -------------------------------------------------------
-   Noise texture
+   Focus states
 ------------------------------------------------------- */
 
-.noise::before {
-  position: absolute;
-  inset: 0;
-  z-index: 1;
-  pointer-events: none;
-  content: "";
-  opacity: 0.025;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.45'/%3E%3C/svg%3E");
+:focus-visible {
+  outline: 1px solid rgba(34, 211, 238, 0.8);
+  outline-offset: 3px;
 }
 
 /* -------------------------------------------------------
-   Glow
+   Animation
 ------------------------------------------------------- */
 
-.glow-primary {
-  box-shadow:
-    0 0 30px rgba(34, 211, 238, 0.08),
-    0 0 80px rgba(34, 211, 238, 0.04);
-}
+@keyframes pulse-soft {
+  0%,
+  100% {
+    opacity: 0.45;
+    transform: scale(0.92);
+  }
 
-.glow-primary-strong {
-  box-shadow:
-    0 0 25px rgba(34, 211, 238, 0.15),
-    0 0 70px rgba(34, 211, 238, 0.07);
-}
-
-/* -------------------------------------------------------
-   Animated gradient border
-------------------------------------------------------- */
-
-.gradient-border {
-  position: relative;
-  isolation: isolate;
-}
-
-.gradient-border::before {
-  position: absolute;
-  inset: -1px;
-  z-index: -1;
-  border-radius: inherit;
-  padding: 1px;
-  content: "";
-  background: linear-gradient(
-    120deg,
-    rgba(34, 211, 238, 0.35),
-    transparent 35%,
-    transparent 65%,
-    rgba(167, 139, 250, 0.25)
-  );
-  -webkit-mask:
-    linear-gradient(#fff 0 0) content-box,
-    linear-gradient(#fff 0 0);
-  -webkit-mask-composite: xor;
-  mask-composite: exclude;
+  50% {
+    opacity: 1;
+    transform: scale(1);
+  }
 }
 
 /* -------------------------------------------------------
-   Noise / reduced motion
+   Reduced motion
 ------------------------------------------------------- */
 
 @media (prefers-reduced-motion: reduce) {
@@ -293,38 +172,16 @@ button {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
   }
 }
 
 /* -------------------------------------------------------
-   Mobile
+   Small-screen adjustments
 ------------------------------------------------------- */
 
 @media (max-width: 640px) {
-  body {
-    background:
-      radial-gradient(
-        circle at 50% -5%,
-        rgba(34, 211, 238, 0.045),
-        transparent 22rem
-      ),
-      var(--background);
-  }
-}
-
-/* -------------------------------------------------------
-   Print
-------------------------------------------------------- */
-
-@media print {
-  body {
-    background: #ffffff;
-    color: #000000;
-  }
-
-  nav,
-  footer,
-  button {
-    display: none !important;
+  .grid-background {
+    background-size: 42px 42px;
   }
 }
