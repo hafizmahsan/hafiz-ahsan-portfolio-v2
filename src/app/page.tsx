@@ -10,7 +10,10 @@ import { ScrollProgress } from "@/components/scroll-progress";
 
 export default function Home() {
   return (
-    <main className="relative min-h-screen overflow-x-clip">
+    <main
+      id="top"
+      className="relative min-h-screen overflow-x-clip"
+    >
       <ScrollProgress />
 
       <Navbar />
