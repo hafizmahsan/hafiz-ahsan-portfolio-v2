@@ -1,38 +1,30 @@
 export const profile = {
-  name: "Hafiz Ahsan",
+  name: "Hafiz Mahsan",
 
-  role: "Senior RPA Consultant & Solution Architect",
+  title: "Senior RPA Consultant & Solution Architect",
 
-  location: "Jeddah, Saudi Arabia",
+  shortTitle: "Senior RPA Consultant",
 
-  availability: "Open to strategic opportunities",
+  tagline: "Turning complex processes into intelligent automation.",
 
-  hero: {
-    eyebrow: "Senior RPA Consultant · Solution Architect",
+  summary:
+    "IT professional with 6+ years of experience across RPA development, consulting, enterprise automation and solution architecture.",
 
-    title: "Automate.",
-    titleAccent: "Architect. Engineer.",
+  about:
+    "Experienced technology professional focused on enterprise automation, RPA, process engineering and scalable solution delivery. My career has evolved from hands-on development into client-facing consulting and solution architecture, with a focus on connecting business problems with practical technology solutions.",
 
-    description:
-      "IT professional with 6+ years of experience designing enterprise automation, RPA solutions and scalable digital workflows across banking, telecom and insurance environments.",
+  contact: {
+    email: "your.email@example.com",
+
+    linkedin: "https://www.linkedin.com/in/your-linkedin-profile/",
+
+    location: "Jeddah, Saudi Arabia",
   },
 
-  about: {
-    label: "About me",
+  social: {
+    github: "https://github.com/hafizmahsan",
 
-    title: "Building automation systems that turn complexity into clarity.",
-
-    description:
-      "I specialize in enterprise automation, RPA development and solution architecture. My experience spans the full delivery lifecycle — from process discovery and development to architecture, deployment, optimization and production support.",
-
-    highlights: [
-      "6+ years in enterprise IT and automation",
-      "RPA development and solution architecture",
-      "Enterprise process automation",
-      "Production-grade automation delivery",
-      "Cross-functional and client-facing consulting",
-      "Experience across telecom, banking and insurance environments",
-    ],
+    linkedin: "https://www.linkedin.com/in/your-linkedin-profile/",
   },
 
   stats: [
@@ -42,28 +34,15 @@ export const profile = {
     },
     {
       value: "RPA",
-      label: "Core specialization",
+      label: "Core Specialization",
     },
     {
-      value: "5+",
-      label: "Enterprise environments",
+      value: "Architecture",
+      label: "Current Focus",
     },
     {
-      value: "24/7",
-      label: "Automation mindset",
+      value: "Enterprise",
+      label: "Delivery Environment",
     },
   ],
-
-  contact: {
-    title: "Have a process worth automating?",
-
-    description:
-      "Let's discuss how automation, better architecture and intelligent workflows can create measurable business value.",
-
-    email: "your.email@example.com",
-
-    linkedin: "https://www.linkedin.com/in/your-profile",
-
-    github: "https://github.com/your-username",
-  },
 } as const;
