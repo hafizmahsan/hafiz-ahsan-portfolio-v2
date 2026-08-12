@@ -10,232 +10,184 @@ import {
 
 import { experience } from "@/data/experience";
 
-const reveal = {
-  hidden: {
-    opacity: 0,
-    y: 24,
-  },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: {
-      duration: 0.65,
-      ease: [0.16, 1, 0.3, 1],
-    },
-  },
-};
-
 export function Experience() {
   return (
     <section
       id="experience"
-      className="relative border-t border-border py-24 sm:py-32 lg:py-40"
+      className="relative border-t border-border py-24 sm:py-28 lg:py-36"
     >
       <div className="mx-auto max-w-7xl px-5 sm:px-6 lg:px-8">
         {/* Header */}
         <motion.div
-          className="max-w-3xl"
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.25 }}
-          variants={reveal}
+          className="grid gap-8 lg:grid-cols-[0.45fr_1fr] lg:gap-20"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.2 }}
+          transition={{
+            duration: 0.7,
+            ease: [0.16, 1, 0.3, 1],
+          }}
         >
-          <div className="mb-5 flex items-center gap-3">
-            <span className="h-px w-8 bg-primary" />
+          <div>
+            <p className="font-mono text-[9px] uppercase tracking-[0.22em] text-primary">
+              03 · Experience
+            </p>
 
-            <span className="font-mono text-[10px] uppercase tracking-[0.22em] text-primary">
-              Experience
-            </span>
+            <h2 className="mt-4 text-2xl font-semibold tracking-tight text-foreground sm:text-3xl">
+              Six years of moving from automation delivery to architecture.
+            </h2>
           </div>
 
-          <h2 className="text-balance text-3xl font-semibold tracking-[-0.04em] text-foreground sm:text-4xl lg:text-5xl">
-            Six years of evolving with automation.
-          </h2>
-
-          <p className="mt-6 max-w-2xl text-sm leading-7 text-foreground-muted sm:text-base sm:leading-8">
-            From enterprise IT and RPA development to consulting and solution
-            architecture, each stage of my career has expanded the way I
-            approach automation problems.
+          <p className="max-w-3xl text-sm leading-7 text-foreground-muted sm:text-base sm:leading-8">
+            A career shaped by hands-on development, consulting, enterprise
+            delivery and increasingly strategic responsibility across
+            automation and technology initiatives.
           </p>
         </motion.div>
 
         {/* Timeline */}
-        <div className="relative mt-16 lg:mt-24">
-          {/* Central line — desktop */}
+        <div className="relative mt-16 lg:mt-20">
+          {/* Vertical line */}
           <div
             aria-hidden="true"
-            className="absolute bottom-0 left-[22px] top-0 hidden w-px bg-gradient-to-b from-primary/50 via-border to-transparent md:block"
+            className="absolute bottom-0 left-[15px] top-0 w-px bg-gradient-to-b from-primary/30 via-border to-transparent sm:left-[19px]"
           />
 
-          <div className="space-y-8">
-            {experience.map((item, index) => (
+          <div className="space-y-4">
+            {experience.map((role, index) => (
               <motion.article
-                key={item.id}
-                className="relative md:pl-16"
-                initial="hidden"
-                whileInView="visible"
-                viewport={{
-                  once: true,
-                  amount: 0.12,
-                }}
-                variants={reveal}
+                key={`${role.company}-${role.title}-${role.period}`}
+                className="relative pl-10 sm:pl-12"
+                initial={{ opacity: 0, x: -16 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true, amount: 0.12 }}
                 transition={{
-                  delay: Math.min(index * 0.04, 0.2),
+                  duration: 0.6,
+                  delay: index * 0.08,
+                  ease: [0.16, 1, 0.3, 1],
                 }}
               >
-                {/* Timeline marker */}
-                <div
-                  aria-hidden="true"
-                  className="absolute left-[15px] top-8 hidden h-[15px] w-[15px] items-center justify-center rounded-full border border-primary/40 bg-background md:flex"
-                >
-                  <span className="h-1.5 w-1.5 rounded-full bg-primary shadow-[0_0_12px_rgba(34,211,238,0.7)]" />
+                {/* Timeline node */}
+                <div className="absolute left-[8px] top-7 flex h-4 w-4 items-center justify-center rounded-full border border-primary/20 bg-background sm:left-[12px]">
+                  <span
+                    className={`h-1.5 w-1.5 rounded-full ${
+                      index === 0
+                        ? "bg-primary shadow-[0_0_10px_rgba(34,211,238,0.5)]"
+                        : "bg-foreground-subtle"
+                    }`}
+                  />
                 </div>
 
-                {/* Card */}
-                <div className="group relative overflow-hidden rounded-3xl border border-border bg-white/[0.02] transition-colors duration-500 hover:border-primary/15 hover:bg-white/[0.035]">
-                  {/* Current role accent */}
+                <div
+                  className={`group relative overflow-hidden rounded-2xl border p-5 transition-all duration-500 sm:p-6 lg:p-7 ${
+                    index === 0
+                      ? "border-primary/15 bg-primary/[0.025]"
+                      : "border-border bg-card hover:border-primary/10 hover:bg-card-hover"
+                  }`}
+                >
+                  {/* Current-role glow */}
                   {index === 0 && (
-                    <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-primary to-transparent opacity-60" />
+                    <div className="pointer-events-none absolute right-0 top-0 h-40 w-40 translate-x-1/4 -translate-y-1/4 rounded-full bg-primary/[0.05] blur-3xl" />
                   )}
 
-                  <div className="grid lg:grid-cols-[0.32fr_0.68fr]">
-                    {/* Meta */}
-                    <div className="border-b border-border p-6 lg:border-b-0 lg:border-r lg:p-8">
-                      <div className="flex items-center justify-between lg:block">
-                        <span className="font-mono text-[10px] uppercase tracking-[0.16em] text-primary">
-                          {item.period}
-                        </span>
-
-                        {index === 0 && (
-                          <span className="rounded-full border border-primary/20 bg-primary/[0.06] px-2.5 py-1 font-mono text-[8px] uppercase tracking-[0.12em] text-primary lg:mt-4 lg:inline-flex">
-                            Current
-                          </span>
-                        )}
-                      </div>
-
-                      <div className="mt-6 space-y-3">
-                        <div className="flex items-start gap-2.5">
-                          <Building2
-                            size={14}
-                            strokeWidth={1.6}
-                            className="mt-0.5 shrink-0 text-foreground-subtle"
-                          />
-
-                          <span className="text-xs leading-5 text-foreground-muted">
-                            {item.company}
-                          </span>
-                        </div>
-
-                        <div className="flex items-start gap-2.5">
-                          <MapPin
-                            size={14}
-                            strokeWidth={1.6}
-                            className="mt-0.5 shrink-0 text-foreground-subtle"
-                          />
-
-                          <span className="text-xs leading-5 text-foreground-muted">
-                            {item.location}
-                          </span>
-                        </div>
-
-                        <div className="flex items-start gap-2.5">
-                          <CalendarDays
-                            size={14}
-                            strokeWidth={1.6}
-                            className="mt-0.5 shrink-0 text-foreground-subtle"
-                          />
-
-                          <span className="text-xs leading-5 text-foreground-muted">
-                            {item.type}
-                          </span>
-                        </div>
-                      </div>
-
-                      {item.relationship && (
-                        <div className="mt-6 rounded-2xl border border-border bg-background/50 p-3.5">
-                          <p className="font-mono text-[8px] uppercase tracking-[0.15em] text-foreground-subtle">
-                            Engagement
-                          </p>
-
-                          <p className="mt-1.5 text-[11px] leading-5 text-foreground-muted">
-                            {item.relationship}
-                          </p>
-                        </div>
-                      )}
-                    </div>
-
-                    {/* Content */}
-                    <div className="p-6 sm:p-8 lg:p-10">
-                      <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
-                        <div>
-                          <h3 className="text-xl font-semibold tracking-[-0.025em] text-foreground sm:text-2xl">
-                            {item.role}
+                  <div className="relative">
+                    {/* Top row */}
+                    <div className="flex flex-col gap-5 lg:flex-row lg:items-start lg:justify-between">
+                      <div className="min-w-0">
+                        <div className="flex flex-wrap items-center gap-2">
+                          <h3 className="text-base font-semibold text-foreground sm:text-lg">
+                            {role.title}
                           </h3>
 
-                          <p className="mt-2 text-sm font-medium text-primary">
-                            {item.company}
-                          </p>
+                          {index === 0 && (
+                            <span className="rounded-full border border-emerald-400/15 bg-emerald-400/[0.05] px-2 py-1 font-mono text-[7px] uppercase tracking-[0.12em] text-emerald-300">
+                              Current
+                            </span>
+                          )}
                         </div>
 
-                        <span className="hidden rounded-full border border-border bg-background px-3 py-1.5 font-mono text-[8px] uppercase tracking-[0.12em] text-foreground-subtle sm:block">
-                          {item.startDate} → {item.endDate}
-                        </span>
-                      </div>
-
-                      <p className="mt-6 max-w-3xl text-sm leading-7 text-foreground-muted">
-                        {item.description}
-                      </p>
-
-                      {/* Achievements */}
-                      <div className="mt-8">
-                        <p className="font-mono text-[9px] uppercase tracking-[0.18em] text-foreground-subtle">
-                          Key contributions
-                        </p>
-
-                        <div className="mt-4 grid gap-3 sm:grid-cols-2">
-                          {item.achievements.map((achievement) => (
-                            <div
-                              key={achievement}
-                              className="flex gap-3 rounded-2xl border border-border bg-background/40 p-3.5"
-                            >
-                              <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-primary" />
-
-                              <span className="text-xs leading-5 text-foreground-muted">
-                                {achievement}
-                              </span>
-                            </div>
-                          ))}
-                        </div>
-                      </div>
-
-                      {/* Technologies */}
-                      <div className="mt-8 flex flex-wrap gap-2">
-                        {item.technologies.map((technology) => (
-                          <span
-                            key={technology}
-                            className="rounded-full border border-border px-2.5 py-1.5 font-mono text-[8px] uppercase tracking-[0.08em] text-foreground-subtle transition-colors group-hover:border-primary/15 group-hover:text-foreground-muted"
-                          >
-                            {technology}
+                        <div className="mt-2 flex flex-wrap items-center gap-x-4 gap-y-2 text-[10px] text-foreground-subtle">
+                          <span className="inline-flex items-center gap-1.5">
+                            <Building2 size={12} className="text-primary" />
+                            {role.company}
                           </span>
-                        ))}
+
+                          {role.location && (
+                            <span className="inline-flex items-center gap-1.5">
+                              <MapPin size={12} />
+                              {role.location}
+                            </span>
+                          )}
+                        </div>
                       </div>
 
-                      <div className="mt-8 flex items-center gap-2 text-[10px] text-foreground-subtle">
-                        <span>Career progression</span>
-
-                        <ArrowUpRight
-                          size={12}
-                          strokeWidth={1.6}
-                          className="transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
-                        />
+                      <div className="inline-flex shrink-0 items-center gap-1.5 font-mono text-[8px] uppercase tracking-[0.12em] text-foreground-subtle">
+                        <CalendarDays size={11} />
+                        {role.period}
                       </div>
                     </div>
+
+                    {/* Description */}
+                    <p className="relative mt-6 max-w-4xl text-xs leading-6 text-foreground-muted sm:text-sm sm:leading-7">
+                      {role.description}
+                    </p>
+
+                    {/* Highlights */}
+                    {role.highlights && role.highlights.length > 0 && (
+                      <div className="relative mt-6 grid gap-2 sm:grid-cols-2">
+                        {role.highlights.map((highlight) => (
+                          <div
+                            key={highlight}
+                            className="rounded-xl border border-border bg-white/[0.015] px-3.5 py-3 text-[10px] leading-5 text-foreground-subtle transition-colors duration-300 group-hover:border-border-strong"
+                          >
+                            <span className="mr-2 text-primary">+</span>
+                            {highlight}
+                          </div>
+                        ))}
+                      </div>
+                    )}
                   </div>
                 </div>
               </motion.article>
             ))}
           </div>
         </div>
+
+        {/* Career progression */}
+        <motion.div
+          className="mt-12 rounded-2xl border border-border bg-white/[0.015] p-6 sm:p-8"
+          initial={{ opacity: 0, y: 18 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.15 }}
+          transition={{
+            duration: 0.65,
+          }}
+        >
+          <div className="flex flex-col gap-5 lg:flex-row lg:items-center lg:justify-between">
+            <div>
+              <p className="font-mono text-[8px] uppercase tracking-[0.18em] text-primary">
+                Career trajectory
+              </p>
+
+              <p className="mt-3 max-w-3xl text-sm leading-7 text-foreground-muted">
+                Developer → Consultant → Senior Consultant → Solution
+                Architecture
+              </p>
+            </div>
+
+            <a
+              href="#projects"
+              className="group inline-flex shrink-0 items-center gap-2 text-xs font-medium text-primary transition-colors hover:text-primary-bright"
+            >
+              See selected work
+
+              <ArrowUpRight
+                size={14}
+                className="transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
+              />
+            </a>
+          </div>
+        </motion.div>
       </div>
     </section>
   );
