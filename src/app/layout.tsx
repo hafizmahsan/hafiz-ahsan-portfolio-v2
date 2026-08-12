@@ -3,13 +3,15 @@ import { Inter, JetBrains_Mono } from "next/font/google";
 
 import "./globals.css";
 
+import { profile } from "@/data/profile";
+
 const inter = Inter({
   variable: "--font-inter",
   subsets: ["latin"],
   display: "swap",
 });
 
-const jetBrainsMono = JetBrains_Mono({
+const jetbrainsMono = JetBrains_Mono({
   variable: "--font-mono",
   subsets: ["latin"],
   display: "swap",
@@ -19,12 +21,12 @@ export const metadata: Metadata = {
   metadataBase: new URL("https://hafizmahsan.github.io"),
 
   title: {
-    default: "Hafiz Mahsan | Senior RPA Consultant & Solution Architect",
-    template: "%s | Hafiz Mahsan",
+    default: `${profile.name} — Senior RPA Consultant & Solution Architect`,
+    template: `%s | ${profile.name}`,
   },
 
   description:
-    "Professional portfolio of Hafiz Mahsan — Senior RPA Consultant, automation engineer and solution architect specializing in enterprise automation, RPA and technology solutions.",
+    "Professional portfolio of Hafiz Mahsan — Senior RPA Consultant and Solution Architect specializing in enterprise automation, RPA, process engineering and scalable technology solutions.",
 
   keywords: [
     "Hafiz Mahsan",
@@ -32,32 +34,27 @@ export const metadata: Metadata = {
     "Senior RPA Consultant",
     "RPA Developer",
     "Solution Architect",
-    "Automation Consultant",
+    "Automation",
     "Enterprise Automation",
-    "Robotic Process Automation",
-    "RPA Saudi Arabia",
-    "RPA Developer Saudi Arabia",
-    "Automation Architecture",
-    "Power Automate",
     "UiPath",
-    "Blue Prism",
-    "Enterprise Integration",
+    "RPA Architecture",
+    "Saudi Arabia",
+    "IT Consultant",
   ],
 
   authors: [
     {
-      name: "Hafiz Mahsan",
-      url: "https://hafizmahsan.github.io",
+      name: profile.name,
     },
   ],
 
-  creator: "Hafiz Mahsan",
-
-  category: "technology",
+  creator: profile.name,
 
   applicationName: "Hafiz Mahsan Portfolio",
 
-  referrer: "origin-when-cross-origin",
+  alternates: {
+    canonical: "/",
+  },
 
   robots: {
     index: true,
@@ -71,35 +68,35 @@ export const metadata: Metadata = {
     },
   },
 
-  alternates: {
-    canonical: "https://hafizmahsan.github.io",
-  },
-
   openGraph: {
     type: "website",
     locale: "en_US",
-    url: "https://hafizmahsan.github.io",
-    siteName: "Hafiz Mahsan",
-    title: "Hafiz Mahsan | Senior RPA Consultant & Solution Architect",
+    url: "/",
+    siteName: `${profile.name} Portfolio`,
+    title: `${profile.name} — Senior RPA Consultant & Solution Architect`,
     description:
-      "Senior RPA Consultant and Solution Architect specializing in enterprise automation, RPA, integration and technology solutions.",
+      "Enterprise RPA, automation architecture and technology solutions.",
   },
 
   twitter: {
     card: "summary_large_image",
-    title: "Hafiz Mahsan | Senior RPA Consultant & Solution Architect",
+    title: `${profile.name} — Senior RPA Consultant & Solution Architect`,
     description:
-      "Senior RPA Consultant and Solution Architect specializing in enterprise automation and RPA.",
+      "Enterprise RPA, automation architecture and technology solutions.",
   },
 
-  manifest: "/site.webmanifest",
+  icons: {
+    icon: "/favicon.ico",
+    shortcut: "/favicon.ico",
+  },
 };
 
 export const viewport: Viewport = {
-  themeColor: "#07090d",
-  colorScheme: "dark",
   width: "device-width",
   initialScale: 1,
+  viewportFit: "cover",
+  colorScheme: "dark",
+  themeColor: "#07090d",
 };
 
 export default function RootLayout({
@@ -108,9 +105,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="scroll-smooth">
+    <html lang="en" suppressHydrationWarning>
       <body
-        className={`${inter.variable} ${jetBrainsMono.variable} bg-background font-sans text-foreground antialiased`}
+        className={`${inter.variable} ${jetbrainsMono.variable} bg-background font-sans text-foreground antialiased`}
       >
         {children}
       </body>
