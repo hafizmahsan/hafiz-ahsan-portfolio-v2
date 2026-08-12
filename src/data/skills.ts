@@ -1,205 +1,213 @@
-export type Skill = {
+export type SkillGroup = {
   id: string;
-  name: string;
-  category:
-    | "Automation"
-    | "Architecture"
-    | "Integration"
-    | "Engineering"
-    | "Professional";
-  level: "Core" | "Advanced" | "Working";
+  category: string;
+  title: string;
   description: string;
-  keywords: string[];
-  featured?: boolean;
+  skills: {
+    name: string;
+    level: "Expert" | "Advanced" | "Working";
+    years?: string;
+  }[];
 };
 
-export const skills: Skill[] = [
+export const skillGroups: SkillGroup[] = [
   {
-    id: "rpa",
-    name: "Robotic Process Automation",
-    category: "Automation",
-    level: "Core",
+    id: "rpa-automation",
+    category: "01",
+    title: "RPA & Automation",
     description:
-      "Designing, developing and supporting enterprise automation solutions that improve operational efficiency and process consistency.",
-    keywords: [
-      "RPA",
-      "Automation",
-      "Workflow",
-      "Process Automation",
-    ],
-    featured: true,
-  },
+      "Designing, developing and delivering enterprise automation solutions across complex business processes.",
 
-  {
-    id: "solution-architecture",
-    name: "Solution Architecture",
-    category: "Architecture",
-    level: "Core",
-    description:
-      "Translating business and technical requirements into scalable automation and integration solutions.",
-    keywords: [
-      "Architecture",
-      "Technical Design",
-      "Scalability",
-      "Enterprise Systems",
-    ],
-    featured: true,
-  },
-
-  {
-    id: "process-analysis",
-    name: "Process Analysis",
-    category: "Automation",
-    level: "Advanced",
-    description:
-      "Analyzing business processes to identify automation opportunities, bottlenecks, exceptions and improvement areas.",
-    keywords: [
-      "Process Discovery",
-      "Process Mapping",
-      "Optimization",
-      "Automation Assessment",
-    ],
-    featured: true,
-  },
-
-  {
-    id: "api-integration",
-    name: "API & System Integration",
-    category: "Integration",
-    level: "Advanced",
-    description:
-      "Connecting automation workflows with APIs, enterprise applications and supporting systems to create reliable end-to-end solutions.",
-    keywords: [
-      "REST APIs",
-      "Integration",
-      "Enterprise Applications",
-      "Data Exchange",
-    ],
-    featured: true,
-  },
-
-  {
-    id: "automation-engineering",
-    name: "Automation Engineering",
-    category: "Engineering",
-    level: "Advanced",
-    description:
-      "Applying software engineering practices to automation development, maintainability, exception handling and production support.",
-    keywords: [
-      "Development",
-      "Debugging",
-      "Exception Handling",
-      "Maintainability",
-    ],
-    featured: true,
-  },
-
-  {
-    id: "enterprise-delivery",
-    name: "Enterprise Delivery",
-    category: "Professional",
-    level: "Advanced",
-    description:
-      "Working across business and technology stakeholders to deliver automation solutions within enterprise environments.",
-    keywords: [
-      "Stakeholder Management",
-      "Consulting",
-      "Delivery",
-      "Collaboration",
-    ],
-    featured: true,
-  },
-
-  {
-    id: "technical-consulting",
-    name: "Technical Consulting",
-    category: "Professional",
-    level: "Advanced",
-    description:
-      "Bridging business requirements and technical implementation through structured analysis, solution recommendations and technical communication.",
-    keywords: [
-      "Consulting",
-      "Requirements",
-      "Technical Analysis",
-      "Advisory",
+    skills: [
+      {
+        name: "RPA Development",
+        level: "Expert",
+        years: "6+ years",
+      },
+      {
+        name: "Process Automation",
+        level: "Expert",
+      },
+      {
+        name: "Workflow Automation",
+        level: "Expert",
+      },
+      {
+        name: "Exception Handling",
+        level: "Advanced",
+      },
+      {
+        name: "Automation Optimization",
+        level: "Advanced",
+      },
     ],
   },
 
   {
-    id: "automation-strategy",
-    name: "Automation Strategy",
-    category: "Architecture",
-    level: "Working",
+    id: "architecture",
+    category: "02",
+    title: "Solution Architecture",
     description:
-      "Evaluating automation opportunities and helping organizations move from individual bots toward sustainable automation capabilities.",
-    keywords: [
-      "Automation Strategy",
-      "Opportunity Assessment",
-      "Governance",
-      "Roadmaps",
+      "Translating business requirements into scalable, maintainable and production-ready automation architectures.",
+
+    skills: [
+      {
+        name: "Solution Architecture",
+        level: "Advanced",
+      },
+      {
+        name: "Technical Design",
+        level: "Advanced",
+      },
+      {
+        name: "Enterprise Automation Architecture",
+        level: "Advanced",
+      },
+      {
+        name: "Integration Design",
+        level: "Advanced",
+      },
+      {
+        name: "Reusable Architecture",
+        level: "Advanced",
+      },
     ],
   },
 
   {
-    id: "modern-web",
-    name: "Modern Web Development",
-    category: "Engineering",
-    level: "Working",
+    id: "enterprise-integration",
+    category: "03",
+    title: "Enterprise Integration",
     description:
-      "Building modern web experiences with component-based architectures, responsive interfaces and contemporary frontend technologies.",
-    keywords: [
-      "React",
-      "Next.js",
-      "TypeScript",
-      "Modern CSS",
+      "Connecting automation workflows with enterprise applications, systems and business processes.",
+
+    skills: [
+      {
+        name: "Enterprise Applications",
+        level: "Advanced",
+      },
+      {
+        name: "System Integration",
+        level: "Advanced",
+      },
+      {
+        name: "API Integration",
+        level: "Working",
+      },
+      {
+        name: "Data Processing",
+        level: "Advanced",
+      },
+      {
+        name: "Cross-System Automation",
+        level: "Advanced",
+      },
     ],
   },
 
   {
-    id: "technical-research",
-    name: "Technical Research & Prototyping",
-    category: "Professional",
-    level: "Working",
+    id: "consulting",
+    category: "04",
+    title: "Consulting & Delivery",
     description:
-      "Exploring emerging technologies and rapidly validating ideas through prototypes and proof-of-concept implementations.",
-    keywords: [
-      "Prototyping",
-      "POC",
-      "Research",
-      "Emerging Technology",
+      "Working with business and technical stakeholders to discover opportunities, design solutions and deliver measurable outcomes.",
+
+    skills: [
+      {
+        name: "Process Discovery",
+        level: "Advanced",
+      },
+      {
+        name: "Business Analysis",
+        level: "Advanced",
+      },
+      {
+        name: "Technical Consulting",
+        level: "Advanced",
+      },
+      {
+        name: "Stakeholder Management",
+        level: "Advanced",
+      },
+      {
+        name: "Solution Estimation",
+        level: "Working",
+      },
+    ],
+  },
+
+  {
+    id: "engineering",
+    category: "05",
+    title: "Engineering Practices",
+    description:
+      "Applying software engineering principles to make automation solutions reliable, maintainable and scalable.",
+
+    skills: [
+      {
+        name: "Software Development",
+        level: "Advanced",
+      },
+      {
+        name: "Reusable Components",
+        level: "Advanced",
+      },
+      {
+        name: "Version Control",
+        level: "Advanced",
+      },
+      {
+        name: "Debugging & Troubleshooting",
+        level: "Advanced",
+      },
+      {
+        name: "Production Support",
+        level: "Advanced",
+      },
+    ],
+  },
+
+  {
+    id: "professional",
+    category: "06",
+    title: "Professional Capabilities",
+    description:
+      "The consulting and communication capabilities required to work effectively across enterprise technology environments.",
+
+    skills: [
+      {
+        name: "Client Communication",
+        level: "Advanced",
+      },
+      {
+        name: "Technical Documentation",
+        level: "Advanced",
+      },
+      {
+        name: "Problem Solving",
+        level: "Expert",
+      },
+      {
+        name: "Technical Leadership",
+        level: "Advanced",
+      },
+      {
+        name: "Cross-functional Collaboration",
+        level: "Advanced",
+      },
     ],
   },
 ];
 
-export const skillCategories = [
-  {
-    id: "automation",
-    label: "Automation",
-    description:
-      "Designing and delivering automation solutions around real business processes.",
-  },
-  {
-    id: "architecture",
-    label: "Architecture",
-    description:
-      "Turning requirements into scalable and maintainable technical solutions.",
-  },
-  {
-    id: "integration",
-    label: "Integration",
-    description:
-      "Connecting automation with APIs, applications and enterprise systems.",
-  },
-  {
-    id: "engineering",
-    label: "Engineering",
-    description:
-      "Applying software engineering principles to reliable automation and digital products.",
-  },
-  {
-    id: "professional",
-    label: "Consulting",
-    description:
-      "Working with stakeholders to understand problems and deliver practical technology solutions.",
-  },
-] as const;
+export const technologyStack = [
+  "RPA",
+  "Automation",
+  "Solution Architecture",
+  "Enterprise Integration",
+  "Workflow Automation",
+  "Process Discovery",
+  "API Integration",
+  "Software Engineering",
+  "Version Control",
+  "Production Support",
+];
