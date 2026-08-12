@@ -1,272 +1,391 @@
+"use client";
+
+import { useMemo, useState } from "react";
+import { AnimatePresence, motion } from "framer-motion";
+import {
+  ArrowUpRight,
+  ExternalLink,
+  Layers3,
+  Sparkles,
+} from "lucide-react";
+
 import { projects } from "@/data/projects";
 
-const accentStyles = {
-  cyan: {
-    text: "text-primary",
-    border: "group-hover:border-primary/30",
-    glow: "bg-primary/10",
-    line: "bg-primary",
+const reveal = {
+  hidden: {
+    opacity: 0,
+    y: 24,
   },
-  violet: {
-    text: "text-secondary",
-    border: "group-hover:border-secondary/30",
-    glow: "bg-secondary/10",
-    line: "bg-secondary",
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.65,
+      ease: [0.16, 1, 0.3, 1],
+    },
   },
-  emerald: {
-    text: "text-emerald-400",
-    border: "group-hover:border-emerald-400/30",
-    glow: "bg-emerald-400/10",
-    line: "bg-emerald-400",
-  },
-  amber: {
-    text: "text-amber-400",
-    border: "group-hover:border-amber-400/30",
-    glow: "bg-amber-400/10",
-    line: "bg-amber-400",
-  },
-} as const;
-
-function ProjectVisual({
-  accent,
-  pattern,
-}: {
-  accent: keyof typeof accentStyles;
-  pattern: string;
-}) {
-  const styles = accentStyles[accent];
-
-  return (
-    <div className="relative h-56 overflow-hidden rounded-2xl border border-border bg-background">
-      {/* Ambient glow */}
-      <div
-        className={`absolute left-1/2 top-1/2 h-40 w-40 -translate-x-1/2 -translate-y-1/2 rounded-full ${styles.glow} blur-3xl`}
-      />
-
-      {/* Grid */}
-      <div className="absolute inset-0 opacity-30 [background-image:linear-gradient(to_right,rgba(255,255,255,0.05)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.05)_1px,transparent_1px)] [background-size:32px_32px]" />
-
-      {/* Pattern: network */}
-      {pattern === "network" && (
-        <div className="absolute inset-0">
-          <span
-            className={`absolute left-[20%] top-[25%] h-2 w-2 rounded-full ${styles.line} shadow-[0_0_16px_currentColor]`}
-          />
-          <span
-            className={`absolute left-[50%] top-[45%] h-3 w-3 rounded-full ${styles.line} shadow-[0_0_20px_currentColor]`}
-          />
-          <span
-            className={`absolute right-[20%] top-[30%] h-2 w-2 rounded-full ${styles.line} shadow-[0_0_16px_currentColor]`}
-          />
-          <span
-            className={`absolute bottom-[25%] left-[35%] h-2 w-2 rounded-full ${styles.line}`}
-          />
-          <span
-            className={`absolute bottom-[20%] right-[30%] h-2 w-2 rounded-full ${styles.line}`}
-          />
-
-          <div className="absolute left-[21%] top-[27%] h-px w-[31%] rotate-[20deg] bg-white/20" />
-          <div className="absolute left-[51%] top-[46%] h-px w-[25%] -rotate-[24deg] bg-white/20" />
-          <div className="absolute left-[36%] top-[46%] h-px w-[17%] rotate-[120deg] bg-white/15" />
-          <div className="absolute left-[52%] top-[48%] h-px w-[22%] rotate-[35deg] bg-white/15" />
-        </div>
-      )}
-
-      {/* Pattern: orbital */}
-      {pattern === "orbital" && (
-        <div className="absolute inset-0">
-          <div className="absolute left-1/2 top-1/2 h-28 w-28 -translate-x-1/2 -translate-y-1/2 rounded-full border border-white/10" />
-          <div className="absolute left-1/2 top-1/2 h-44 w-20 -translate-x-1/2 -translate-y-1/2 rotate-45 rounded-[50%] border border-white/10" />
-          <div className="absolute left-1/2 top-1/2 h-44 w-20 -translate-x-1/2 -translate-y-1/2 -rotate-45 rounded-[50%] border border-white/10" />
-
-          <div
-            className={`absolute left-[calc(50%+42px)] top-[calc(50%-42px)] h-2.5 w-2.5 rounded-full ${styles.line} shadow-[0_0_18px_currentColor]`}
-          />
-
-          <div
-            className={`absolute left-[calc(50%-55px)] top-[calc(50%+30px)] h-2 w-2 rounded-full ${styles.line}`}
-          />
-        </div>
-      )}
-
-      {/* Pattern: flow */}
-      {pattern === "flow" && (
-        <div className="absolute inset-0">
-          <div className="absolute left-[15%] top-[30%] h-px w-[70%] rotate-[12deg] bg-gradient-to-r from-transparent via-white/30 to-transparent" />
-          <div className="absolute left-[10%] top-[50%] h-px w-[80%] -rotate-[8deg] bg-gradient-to-r from-transparent via-white/20 to-transparent" />
-          <div className="absolute left-[20%] top-[65%] h-px w-[60%] rotate-[5deg] bg-gradient-to-r from-transparent via-white/15 to-transparent" />
-
-          <div
-            className={`absolute left-[28%] top-[42%] h-2 w-2 rounded-full ${styles.line} shadow-[0_0_16px_currentColor]`}
-          />
-          <div
-            className={`absolute left-[58%] top-[48%] h-3 w-3 rounded-full ${styles.line} shadow-[0_0_20px_currentColor]`}
-          />
-          <div
-            className={`absolute right-[22%] top-[36%] h-2 w-2 rounded-full ${styles.line}`}
-          />
-        </div>
-      )}
-
-      {/* Pattern: grid */}
-      {pattern === "grid" && (
-        <div className="absolute inset-8 grid grid-cols-6 grid-rows-4 gap-2">
-          {Array.from({ length: 24 }).map((_, index) => (
-            <span
-              key={index}
-              className={`rounded-sm border border-white/[0.04] ${
-                index % 5 === 0 ? `${styles.glow} border-white/10` : ""
-              }`}
-            />
-          ))}
-        </div>
-      )}
-
-      {/* Project number */}
-      <div className="absolute bottom-4 left-5 font-mono text-[9px] uppercase tracking-[0.2em] text-foreground-subtle">
-        SYSTEM / VISUAL
-      </div>
-    </div>
-  );
-}
+};
 
 export function Projects() {
+  const [activeCategory, setActiveCategory] = useState("All");
+
+  const categories = useMemo(
+    () => [
+      "All",
+      ...Array.from(new Set(projects.map((project) => project.category))),
+    ],
+    [],
+  );
+
+  const filteredProjects = useMemo(() => {
+    if (activeCategory === "All") {
+      return projects;
+    }
+
+    return projects.filter(
+      (project) => project.category === activeCategory,
+    );
+  }, [activeCategory]);
+
   const featuredProjects = projects.filter((project) => project.featured);
 
   return (
     <section
-      id="work"
-      className="border-t border-border bg-background-elevated px-6 py-24 lg:px-8 lg:py-32"
+      id="projects"
+      className="relative border-t border-border py-24 sm:py-32 lg:py-40"
     >
-      <div className="mx-auto max-w-7xl">
+      <div className="mx-auto max-w-7xl px-5 sm:px-6 lg:px-8">
         {/* Header */}
-        <div className="grid gap-6 lg:grid-cols-[1fr_auto] lg:items-end">
-          <div>
-            <p className="font-mono text-xs uppercase tracking-[0.22em] text-primary">
-              03 / Selected Work
-            </p>
+        <motion.div
+          className="flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between"
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.25 }}
+          variants={reveal}
+        >
+          <div className="max-w-3xl">
+            <div className="mb-5 flex items-center gap-3">
+              <span className="h-px w-8 bg-primary" />
 
-            <h2 className="mt-5 max-w-3xl font-display text-3xl font-semibold tracking-tight text-foreground sm:text-5xl">
-              Automation projects built around real business problems.
+              <span className="font-mono text-[10px] uppercase tracking-[0.22em] text-primary">
+                Selected work
+              </span>
+            </div>
+
+            <h2 className="text-balance text-3xl font-semibold tracking-[-0.04em] text-foreground sm:text-4xl lg:text-5xl">
+              Automation built around real problems.
             </h2>
+
+            <p className="mt-6 max-w-2xl text-sm leading-7 text-foreground-muted sm:text-base sm:leading-8">
+              A selection of enterprise automation, architecture and
+              consulting initiatives. Project details can be expanded as the
+              portfolio evolves.
+            </p>
           </div>
 
-          <p className="max-w-xs text-sm leading-6 text-foreground-subtle lg:text-right">
-            A selection of enterprise automation, architecture and technology
-            concepts.
-          </p>
-        </div>
+          <div className="hidden items-center gap-2 rounded-full border border-border bg-white/[0.02] px-3.5 py-2 sm:flex">
+            <Sparkles size={13} className="text-primary" />
 
-        {/* Featured projects */}
-        <div className="mt-14 grid gap-5 lg:grid-cols-2">
-          {featuredProjects.map((project, index) => {
-            const styles = accentStyles[project.visual.accent];
+            <span className="font-mono text-[9px] uppercase tracking-[0.14em] text-foreground-subtle">
+              {featuredProjects.length} featured projects
+            </span>
+          </div>
+        </motion.div>
 
-            return (
-              <article
-                key={project.id}
-                className={`group rounded-3xl border border-border bg-white/[0.015] p-4 transition-all duration-500 hover:-translate-y-1 ${styles.border} sm:p-5`}
-              >
-                <ProjectVisual
-                  accent={project.visual.accent}
-                  pattern={project.visual.pattern}
+        {/* Featured project */}
+        {activeCategory === "All" && featuredProjects.length > 0 && (
+          <motion.div
+            className="mt-14 overflow-hidden rounded-3xl border border-primary/10 bg-white/[0.025] lg:mt-20"
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.15 }}
+            variants={reveal}
+          >
+            <div className="relative grid lg:grid-cols-[1.2fr_0.8fr]">
+              {/* Visual panel */}
+              <div className="relative min-h-[360px] overflow-hidden border-b border-border lg:border-b-0 lg:border-r">
+                <div
+                  aria-hidden="true"
+                  className="absolute inset-0 opacity-[0.07]"
+                  style={{
+                    backgroundImage:
+                      "linear-gradient(rgba(34,211,238,0.8) 1px, transparent 1px), linear-gradient(90deg, rgba(34,211,238,0.8) 1px, transparent 1px)",
+                    backgroundSize: "42px 42px",
+                  }}
                 />
 
-                <div className="p-3 pt-6 sm:p-4 sm:pt-7">
-                  <div className="flex items-center justify-between gap-4">
-                    <span
-                      className={`font-mono text-[10px] uppercase tracking-[0.18em] ${styles.text}`}
-                    >
-                      Project / {String(index + 1).padStart(3, "0")}
-                    </span>
+                <div
+                  aria-hidden="true"
+                  className="absolute left-1/2 top-1/2 h-56 w-56 -translate-x-1/2 -translate-y-1/2 rounded-full bg-cyan-400/[0.08] blur-[90px]"
+                />
 
-                    <span className="font-mono text-[10px] text-foreground-subtle">
-                      {project.year}
-                    </span>
-                  </div>
+                <div className="absolute inset-0 flex items-center justify-center p-8">
+                  <div className="relative w-full max-w-md">
+                    {/* Fake architecture visualization */}
+                    <div className="rounded-3xl border border-primary/15 bg-background/80 p-5 shadow-2xl shadow-cyan-950/20 backdrop-blur-sm">
+                      <div className="flex items-center justify-between border-b border-border pb-4">
+                        <div className="flex items-center gap-2">
+                          <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-primary/[0.08] text-primary">
+                            <Layers3 size={14} />
+                          </div>
 
-                  <h3 className="mt-5 font-display text-2xl font-semibold tracking-tight text-foreground">
-                    {project.title}
-                  </h3>
+                          <span className="font-mono text-[9px] uppercase tracking-[0.12em] text-foreground-muted">
+                            Automation system
+                          </span>
+                        </div>
 
-                  <p className="mt-3 text-sm leading-6 text-foreground-muted">
-                    {project.shortDescription}
-                  </p>
+                        <span className="h-2 w-2 rounded-full bg-emerald-400 shadow-[0_0_10px_rgba(52,211,153,0.7)]" />
+                      </div>
 
-                  <div className="mt-6 flex flex-wrap gap-2">
-                    {project.technologies.map((technology) => (
-                      <span
-                        key={technology}
-                        className="rounded-full bg-white/[0.04] px-3 py-1.5 text-[10px] text-foreground-subtle"
-                      >
-                        {technology}
-                      </span>
-                    ))}
-                  </div>
+                      <div className="grid grid-cols-3 gap-2 py-6">
+                        {[
+                          "Input",
+                          "Process",
+                          "Output",
+                          "Validate",
+                          "Automate",
+                          "Monitor",
+                        ].map((node, index) => (
+                          <motion.div
+                            key={node}
+                            className="rounded-xl border border-border bg-white/[0.025] px-2 py-4 text-center"
+                            animate={{
+                              borderColor:
+                                index % 2 === 0
+                                  ? [
+                                      "rgba(255,255,255,0.08)",
+                                      "rgba(34,211,238,0.25)",
+                                      "rgba(255,255,255,0.08)",
+                                    ]
+                                  : undefined,
+                            }}
+                            transition={{
+                              duration: 3,
+                              repeat: Infinity,
+                              delay: index * 0.3,
+                            }}
+                          >
+                            <span className="text-[9px] text-foreground-muted">
+                              {node}
+                            </span>
+                          </motion.div>
+                        ))}
+                      </div>
 
-                  <div className="mt-7 flex items-center justify-between border-t border-border pt-5">
-                    <span className="text-xs text-foreground-subtle">
-                      {project.status}
-                    </span>
+                      <div className="flex items-center justify-between border-t border-border pt-4">
+                        <span className="font-mono text-[8px] uppercase tracking-[0.12em] text-foreground-subtle">
+                          Enterprise workflow
+                        </span>
 
-                    <span
-                      className={`text-xs font-medium ${styles.text} transition-transform duration-300 group-hover:translate-x-1`}
-                    >
-                      View case study →
-                    </span>
+                        <span className="font-mono text-[8px] text-primary">
+                          ACTIVE
+                        </span>
+                      </div>
+                    </div>
                   </div>
                 </div>
-              </article>
+              </div>
+
+              {/* Featured content */}
+              <div className="p-6 sm:p-8 lg:p-10">
+                <div className="flex items-center justify-between gap-4">
+                  <span className="rounded-full border border-primary/20 bg-primary/[0.06] px-3 py-1.5 font-mono text-[8px] uppercase tracking-[0.14em] text-primary">
+                    Featured
+                  </span>
+
+                  <span className="font-mono text-[9px] text-foreground-subtle">
+                    {featuredProjects[0].year}
+                  </span>
+                </div>
+
+                <h3 className="mt-7 text-2xl font-semibold tracking-[-0.035em] text-foreground sm:text-3xl">
+                  {featuredProjects[0].title}
+                </h3>
+
+                <p className="mt-4 text-sm leading-7 text-foreground-muted">
+                  {featuredProjects[0].description}
+                </p>
+
+                <div className="mt-7 grid grid-cols-3 gap-2">
+                  {featuredProjects[0].impact.map((metric) => (
+                    <div
+                      key={metric.label}
+                      className="rounded-2xl border border-border bg-background/50 p-3"
+                    >
+                      <p className="text-sm font-semibold text-primary">
+                        {metric.value}
+                      </p>
+
+                      <p className="mt-1 text-[9px] leading-4 text-foreground-subtle">
+                        {metric.label}
+                      </p>
+                    </div>
+                  ))}
+                </div>
+
+                <div className="mt-7 flex flex-wrap gap-2">
+                  {featuredProjects[0].technologies.map((technology) => (
+                    <span
+                      key={technology}
+                      className="rounded-full border border-border px-2.5 py-1.5 font-mono text-[8px] uppercase tracking-[0.08em] text-foreground-subtle"
+                    >
+                      {technology}
+                    </span>
+                  ))}
+                </div>
+
+                <button
+                  type="button"
+                  onClick={() => {
+                    const element = document.getElementById(
+                      `project-${featuredProjects[0].id}`,
+                    );
+
+                    element?.scrollIntoView({
+                      behavior: "smooth",
+                      block: "center",
+                    });
+                  }}
+                  className="mt-8 inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/[0.06] px-4 py-2.5 text-[10px] font-medium text-primary transition-colors hover:bg-primary/[0.1]"
+                >
+                  Explore project
+                  <ArrowUpRight size={13} />
+                </button>
+              </div>
+            </div>
+          </motion.div>
+        )}
+
+        {/* Filters */}
+        <div className="mt-12 flex gap-2 overflow-x-auto pb-2 scrollbar-none lg:mt-16">
+          {categories.map((category) => {
+            const active = category === activeCategory;
+
+            return (
+              <button
+                key={category}
+                type="button"
+                onClick={() => setActiveCategory(category)}
+                className={`shrink-0 rounded-full border px-4 py-2 font-mono text-[9px] uppercase tracking-[0.12em] transition-all duration-300 ${
+                  active
+                    ? "border-primary/30 bg-primary/[0.08] text-primary"
+                    : "border-border bg-white/[0.02] text-foreground-subtle hover:border-primary/15 hover:text-foreground-muted"
+                }`}
+              >
+                {category}
+              </button>
             );
           })}
         </div>
 
-        {/* More work */}
-        <div className="mt-5 grid gap-5 md:grid-cols-3">
-          {projects
-            .filter((project) => !project.featured)
-            .map((project) => {
-              const styles = accentStyles[project.visual.accent];
+        {/* Project grid */}
+        <motion.div
+          layout
+          className="mt-5 grid gap-5 md:grid-cols-2"
+        >
+          <AnimatePresence mode="popLayout">
+            {filteredProjects.map((project, index) => (
+              <motion.article
+                key={project.id}
+                id={`project-${project.id}`}
+                layout
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, scale: 0.97 }}
+                transition={{
+                  duration: 0.4,
+                  delay: index * 0.03,
+                }}
+                className="group relative overflow-hidden rounded-3xl border border-border bg-white/[0.02] p-6 transition-colors duration-500 hover:border-primary/15 hover:bg-white/[0.035] sm:p-8"
+              >
+                <div
+                  aria-hidden="true"
+                  className="absolute right-0 top-0 h-36 w-36 translate-x-1/3 -translate-y-1/3 rounded-full bg-violet-500/[0.04] blur-3xl transition-all duration-500 group-hover:bg-violet-500/[0.08]"
+                />
 
-              return (
-                <article
-                  key={project.id}
-                  className={`group rounded-2xl border border-border bg-white/[0.01] p-6 transition-all duration-300 ${styles.border} hover:bg-white/[0.025]`}
-                >
-                  <div className="flex items-center justify-between">
-                    <span
-                      className={`font-mono text-[9px] uppercase tracking-[0.18em] ${styles.text}`}
-                    >
+                <div className="relative">
+                  <div className="flex items-center justify-between gap-4">
+                    <span className="font-mono text-[9px] uppercase tracking-[0.16em] text-primary">
                       {project.category}
                     </span>
 
                     <span className="font-mono text-[9px] text-foreground-subtle">
-                      {project.status}
+                      {project.year}
                     </span>
                   </div>
 
-                  <h3 className="mt-8 font-display text-lg font-semibold text-foreground">
+                  <h3 className="mt-5 text-xl font-semibold tracking-[-0.025em] text-foreground">
                     {project.title}
                   </h3>
 
-                  <p className="mt-3 text-xs leading-5 text-foreground-subtle">
-                    {project.shortDescription}
+                  <p className="mt-4 text-xs leading-6 text-foreground-muted">
+                    {project.description}
                   </p>
 
-                  <div className="mt-5 flex flex-wrap gap-1.5">
-                    {project.technologies.slice(0, 3).map((technology) => (
+                  {/* Role */}
+                  <div className="mt-6 rounded-2xl border border-border bg-background/40 p-3.5">
+                    <p className="font-mono text-[8px] uppercase tracking-[0.15em] text-foreground-subtle">
+                      Role
+                    </p>
+
+                    <p className="mt-1.5 text-[11px] text-foreground-muted">
+                      {project.role}
+                    </p>
+                  </div>
+
+                  {/* Tags */}
+                  <div className="mt-5 flex flex-wrap gap-2">
+                    {project.tags.map((tag) => (
                       <span
-                        key={technology}
-                        className="rounded-full bg-white/[0.035] px-2.5 py-1 text-[9px] text-foreground-subtle"
+                        key={tag}
+                        className="rounded-full border border-border px-2.5 py-1.5 font-mono text-[8px] uppercase tracking-[0.08em] text-foreground-subtle"
                       >
-                        {technology}
+                        {tag}
                       </span>
                     ))}
                   </div>
-                </article>
-              );
-            })}
-        </div>
+
+                  {/* Footer */}
+                  <div className="mt-7 flex items-center justify-between border-t border-border pt-5">
+                    <span className="text-[10px] text-foreground-subtle">
+                      Case study ready
+                    </span>
+
+                    <div className="flex items-center gap-3">
+                      {project.links?.github && (
+                        <a
+                          href={project.links.github}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          aria-label={`${project.title} GitHub`}
+                          className="text-foreground-subtle transition-colors hover:text-primary"
+                        >
+                          <ExternalLink size={14} />
+                        </a>
+                      )}
+
+                      <span className="flex items-center gap-1.5 text-[10px] font-medium text-primary">
+                        View
+                        <ArrowUpRight
+                          size={13}
+                          className="transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
+                        />
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </motion.article>
+            ))}
+          </AnimatePresence>
+        </motion.div>
+
+        {filteredProjects.length === 0 && (
+          <div className="mt-5 rounded-3xl border border-dashed border-border p-12 text-center">
+            <p className="text-sm text-foreground-muted">
+              No projects found in this category yet.
+            </p>
+          </div>
+        )}
       </div>
     </section>
   );
