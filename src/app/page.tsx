@@ -5,10 +5,13 @@ import { Footer } from "@/components/footer";
 import { Hero } from "@/components/hero";
 import { Navbar } from "@/components/navbar";
 import { Projects } from "@/components/projects";
+import { ScrollProgress } from "@/components/scroll-progress";
 
 export default function Home() {
   return (
     <main className="min-h-screen overflow-hidden">
+      <ScrollProgress />
+
       <Navbar />
 
       <Hero />
