@@ -8,6 +8,7 @@ import {
 } from "@react-three/drei";
 import { useEffect, useMemo, useRef } from "react";
 import * as THREE from "three";
+import { useScrollProgress } from "@/hooks/use-scroll-progress";
 
 type Node = {
   position: [number, number, number];
@@ -19,8 +20,11 @@ function useMousePosition() {
 
   useEffect(() => {
     const handlePointerMove = (event: PointerEvent) => {
-      mouse.current.x = (event.clientX / window.innerWidth) * 2 - 1;
-      mouse.current.y = -(event.clientY / window.innerHeight) * 2 + 1;
+      mouse.current.x =
+        (event.clientX / window.innerWidth) * 2 - 1;
+
+      mouse.current.y =
+        -(event.clientY / window.innerHeight) * 2 + 1;
     };
 
     window.addEventListener("pointermove", handlePointerMove, {
@@ -37,7 +41,9 @@ function useMousePosition() {
 
 function NetworkCore() {
   const groupRef = useRef<THREE.Group>(null);
+
   const mouse = useMousePosition();
+  const scrollProgress = useScrollProgress();
 
   const nodes = useMemo<Node[]>(
     () => [
@@ -55,35 +61,85 @@ function NetworkCore() {
   useFrame((state, delta) => {
     if (!groupRef.current) return;
 
-    const targetRotationY = mouse.current.x * 0.28;
-    const targetRotationX = mouse.current.y * 0.16;
+    const scroll = scrollProgress.current;
 
-    groupRef.current.rotation.y = THREE.MathUtils.lerp(
-      groupRef.current.rotation.y,
-      targetRotationY + state.clock.elapsedTime * 0.08,
-      0.025,
-    );
+    /*
+     * Mouse interaction
+     */
+    const targetRotationY =
+      mouse.current.x * 0.28;
 
-    groupRef.current.rotation.x = THREE.MathUtils.lerp(
-      groupRef.current.rotation.x,
-      targetRotationX,
-      0.025,
-    );
+    const targetRotationX =
+      mouse.current.y * 0.16;
 
-    groupRef.current.position.x = THREE.MathUtils.lerp(
-      groupRef.current.position.x,
-      mouse.current.x * 0.12,
+    /*
+     * Scroll interaction
+     *
+     * The scene slowly becomes more expansive
+     * as the visitor travels through the page.
+     */
+    const targetScale =
+      THREE.MathUtils.lerp(1, 1.12, scroll);
+
+    const targetY =
+      THREE.MathUtils.lerp(0, -0.18, scroll);
+
+    const targetZ =
+      THREE.MathUtils.lerp(0, -0.35, scroll);
+
+    groupRef.current.rotation.y =
+      THREE.MathUtils.lerp(
+        groupRef.current.rotation.y,
+        targetRotationY +
+          state.clock.elapsedTime * 0.08 +
+          scroll * Math.PI * 0.35,
+        0.025,
+      );
+
+    groupRef.current.rotation.x =
+      THREE.MathUtils.lerp(
+        groupRef.current.rotation.x,
+        targetRotationX + scroll * 0.12,
+        0.025,
+      );
+
+    groupRef.current.position.x =
+      THREE.MathUtils.lerp(
+        groupRef.current.position.x,
+        mouse.current.x * 0.12,
+        0.02,
+      );
+
+    groupRef.current.position.y =
+      THREE.MathUtils.lerp(
+        groupRef.current.position.y,
+        targetY + mouse.current.y * 0.08,
+        0.02,
+      );
+
+    groupRef.current.position.z =
+      THREE.MathUtils.lerp(
+        groupRef.current.position.z,
+        targetZ,
+        0.02,
+      );
+
+    groupRef.current.scale.lerp(
+      new THREE.Vector3(
+        targetScale,
+        targetScale,
+        targetScale,
+      ),
       0.02,
     );
 
-    groupRef.current.position.y = THREE.MathUtils.lerp(
-      groupRef.current.position.y,
-      mouse.current.y * 0.08,
-      0.02,
-    );
-
-    groupRef.current.position.z +=
-      Math.sin(state.clock.elapsedTime * 0.7) * delta * 0.006;
+    /*
+     * Very subtle floating motion.
+     */
+    groupRef.current.position.y +=
+      Math.sin(state.clock.elapsedTime * 0.7) *
+      delta *
+      0.008;
   });
 
   return (
