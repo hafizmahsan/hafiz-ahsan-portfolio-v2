@@ -1,74 +1,111 @@
 import type { Metadata, Viewport } from "next";
-import { Inter, Space_Grotesk } from "next/font/google";
+import { Inter, JetBrains_Mono } from "next/font/google";
+
 import "./globals.css";
 
 const inter = Inter({
-  subsets: ["latin"],
   variable: "--font-inter",
+  subsets: ["latin"],
   display: "swap",
 });
 
-const spaceGrotesk = Space_Grotesk({
+const jetBrainsMono = JetBrains_Mono({
+  variable: "--font-mono",
   subsets: ["latin"],
-  variable: "--font-space-grotesk",
   display: "swap",
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://hafizmahsan.github.io"),
+
   title: {
-    default: "Hafiz Ahsan | RPA Consultant & Solution Architect",
-    template: "%s | Hafiz Ahsan",
+    default: "Hafiz Mahsan | Senior RPA Consultant & Solution Architect",
+    template: "%s | Hafiz Mahsan",
   },
+
   description:
-    "Professional portfolio of Hafiz Ahsan — Senior RPA Consultant, Automation Engineer and Solution Architect with 6+ years of IT experience.",
+    "Professional portfolio of Hafiz Mahsan — Senior RPA Consultant, automation engineer and solution architect specializing in enterprise automation, RPA and technology solutions.",
+
   keywords: [
-    "Hafiz Ahsan",
-    "RPA",
-    "Robotic Process Automation",
+    "Hafiz Mahsan",
     "RPA Consultant",
+    "Senior RPA Consultant",
     "RPA Developer",
     "Solution Architect",
-    "Automation",
-    "Intelligent Automation",
+    "Automation Consultant",
+    "Enterprise Automation",
+    "Robotic Process Automation",
+    "RPA Saudi Arabia",
+    "RPA Developer Saudi Arabia",
+    "Automation Architecture",
     "Power Automate",
     "UiPath",
-    "Enterprise Automation",
-    "Saudi Arabia",
+    "Blue Prism",
+    "Enterprise Integration",
   ],
+
   authors: [
     {
-      name: "Hafiz Ahsan",
+      name: "Hafiz Mahsan",
+      url: "https://hafizmahsan.github.io",
     },
   ],
-  creator: "Hafiz Ahsan",
-  metadataBase: new URL("https://hafizmahsan.github.io"),
+
+  creator: "Hafiz Mahsan",
+
+  category: "technology",
+
+  applicationName: "Hafiz Mahsan Portfolio",
+
+  referrer: "origin-when-cross-origin",
+
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+      "max-video-preview": -1,
+    },
+  },
+
+  alternates: {
+    canonical: "https://hafizmahsan.github.io",
+  },
+
   openGraph: {
     type: "website",
     locale: "en_US",
     url: "https://hafizmahsan.github.io",
-    title: "Hafiz Ahsan | RPA Consultant & Solution Architect",
+    siteName: "Hafiz Mahsan",
+    title: "Hafiz Mahsan | Senior RPA Consultant & Solution Architect",
     description:
-      "Senior RPA Consultant and Solution Architect specializing in enterprise automation, intelligent process automation and scalable digital solutions.",
-    siteName: "Hafiz Ahsan",
+      "Senior RPA Consultant and Solution Architect specializing in enterprise automation, RPA, integration and technology solutions.",
   },
+
   twitter: {
     card: "summary_large_image",
-    title: "Hafiz Ahsan | RPA Consultant & Solution Architect",
+    title: "Hafiz Mahsan | Senior RPA Consultant & Solution Architect",
     description:
-      "Senior RPA Consultant and Solution Architect specializing in enterprise automation and digital transformation.",
+      "Senior RPA Consultant and Solution Architect specializing in enterprise automation and RPA.",
   },
-  robots: {
-    index: true,
-    follow: true,
+
+  icons: {
+    icon: "/favicon.ico",
+    shortcut: "/favicon.ico",
+    apple: "/apple-touch-icon.png",
   },
+
+  manifest: "/site.webmanifest",
 };
 
 export const viewport: Viewport = {
+  themeColor: "#07090d",
+  colorScheme: "dark",
   width: "device-width",
   initialScale: 1,
-  maximumScale: 1,
-  themeColor: "#05070A",
-  colorScheme: "dark",
 };
 
 export default function RootLayout({
@@ -77,9 +114,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="en" className="scroll-smooth">
       <body
-        className={`${inter.variable} ${spaceGrotesk.variable} antialiased`}
+        className={`${inter.variable} ${jetBrainsMono.variable} bg-background font-sans text-foreground antialiased`}
       >
         {children}
       </body>
