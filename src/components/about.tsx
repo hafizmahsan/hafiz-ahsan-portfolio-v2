@@ -3,238 +3,165 @@
 import { motion } from "framer-motion";
 import {
   ArrowUpRight,
-  BrainCircuit,
-  Layers3,
+  Bot,
+  Boxes,
+  Code2,
   Workflow,
 } from "lucide-react";
 
 import { profile } from "@/data/profile";
-import { skillGroups } from "@/data/skills";
 
-const reveal = {
-  hidden: {
-    opacity: 0,
-    y: 24,
+const focusAreas = [
+  {
+    icon: Bot,
+    label: "RPA & Automation",
+    description:
+      "Designing reliable automation solutions that remove repetitive work and improve operational efficiency.",
   },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: {
-      duration: 0.7,
-      ease: [0.16, 1, 0.3, 1],
-    },
+  {
+    icon: Workflow,
+    label: "Process Engineering",
+    description:
+      "Turning complex business processes into structured, measurable and automation-ready workflows.",
   },
-};
+  {
+    icon: Boxes,
+    label: "Solution Architecture",
+    description:
+      "Designing scalable automation ecosystems with maintainability, security and enterprise integration in mind.",
+  },
+  {
+    icon: Code2,
+    label: "Technical Delivery",
+    description:
+      "Bridging architecture and implementation through hands-on development, troubleshooting and delivery.",
+  },
+];
 
 export function About() {
-  const primaryCapabilities = skillGroups.slice(0, 3);
-
   return (
     <section
       id="about"
-      className="relative border-t border-border py-24 sm:py-32 lg:py-40"
+      className="relative border-t border-border py-24 sm:py-28 lg:py-36"
     >
-      {/* Ambient background */}
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute left-1/2 top-1/2 h-[500px] w-[500px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-cyan-500/[0.035] blur-[120px]"
-      />
-
-      <div className="relative mx-auto max-w-7xl px-5 sm:px-6 lg:px-8">
+      <div className="mx-auto max-w-7xl px-5 sm:px-6 lg:px-8">
         {/* Section heading */}
         <motion.div
-          className="max-w-3xl"
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.25 }}
-          variants={reveal}
+          className="grid gap-8 lg:grid-cols-[0.45fr_1fr] lg:gap-20"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.2 }}
+          transition={{
+            duration: 0.7,
+            ease: [0.16, 1, 0.3, 1],
+          }}
         >
-          <div className="mb-5 flex items-center gap-3">
-            <span className="h-px w-8 bg-primary" />
+          <div>
+            <p className="font-mono text-[9px] uppercase tracking-[0.22em] text-primary">
+              01 · About
+            </p>
 
-            <span className="font-mono text-[10px] uppercase tracking-[0.22em] text-primary">
-              About me
-            </span>
+            <h2 className="mt-4 text-2xl font-semibold tracking-tight text-foreground sm:text-3xl">
+              Engineering automation with business context.
+            </h2>
           </div>
 
-          <h2 className="text-balance text-3xl font-semibold tracking-[-0.04em] text-foreground sm:text-4xl lg:text-5xl">
-            {profile.about.title}
-          </h2>
+          <div className="max-w-3xl">
+            <p className="text-base leading-8 text-foreground-muted sm:text-lg sm:leading-9">
+              {profile.name} is an IT professional with more than six years of
+              experience across RPA development, consulting, solution
+              architecture and enterprise technology delivery.
+            </p>
 
-          <p className="mt-6 max-w-2xl text-sm leading-7 text-foreground-muted sm:text-base sm:leading-8">
-            {profile.about.description}
-          </p>
+            <p className="mt-5 text-sm leading-7 text-foreground-subtle sm:text-base sm:leading-8">
+              His career has evolved from hands-on automation development into
+              designing and delivering enterprise-scale solutions for
+              organizations across multiple industries. The focus is not simply
+              on automating tasks, but on understanding the process,
+              identifying the right technology and building solutions that can
+              operate reliably at scale.
+            </p>
+          </div>
         </motion.div>
 
-        {/* Main content */}
-        <div className="mt-14 grid gap-5 lg:grid-cols-[1.15fr_0.85fr] lg:mt-20">
-          {/* Left: professional statement */}
-          <motion.div
-            className="group relative overflow-hidden rounded-3xl border border-border bg-white/[0.02] p-6 sm:p-8 lg:p-10"
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, amount: 0.2 }}
-            variants={reveal}
-          >
-            {/* Decorative grid */}
-            <div
-              aria-hidden="true"
-              className="pointer-events-none absolute inset-0 opacity-[0.035]"
-              style={{
-                backgroundImage:
-                  "linear-gradient(rgba(255,255,255,0.8) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.8) 1px, transparent 1px)",
-                backgroundSize: "36px 36px",
-              }}
-            />
+        {/* Focus cards */}
+        <div className="mt-16 grid gap-3 sm:grid-cols-2 lg:mt-20 lg:grid-cols-4">
+          {focusAreas.map((item, index) => {
+            const Icon = item.icon;
 
-            <div className="relative">
-              <div className="flex items-start justify-between gap-6">
-                <div>
-                  <p className="font-mono text-[10px] uppercase tracking-[0.18em] text-foreground-subtle">
-                    Profile
-                  </p>
-
-                  <h3 className="mt-3 text-xl font-semibold tracking-tight text-foreground sm:text-2xl">
-                    Engineering with an automation-first mindset.
-                  </h3>
-                </div>
-
-                <div className="hidden h-11 w-11 shrink-0 items-center justify-center rounded-2xl border border-primary/20 bg-primary/[0.06] text-primary sm:flex">
-                  <BrainCircuit size={20} strokeWidth={1.6} />
-                </div>
-              </div>
-
-              <p className="mt-6 max-w-2xl text-sm leading-7 text-foreground-muted">
-                My work sits at the intersection of business processes,
-                automation engineering and enterprise technology. I focus on
-                understanding how a process works, identifying where
-                automation creates value, and then designing a solution that
-                can operate reliably in production.
-              </p>
-
-              <p className="mt-4 max-w-2xl text-sm leading-7 text-foreground-muted">
-                Over the course of my career, I have progressed from
-                enterprise IT into RPA development, consulting and solution
-                architecture — working across client environments and
-                technology organizations.
-              </p>
-
-              {/* Highlights */}
-              <div className="mt-8 grid gap-3 sm:grid-cols-2">
-                {profile.about.highlights.map((highlight, index) => (
-                  <motion.div
-                    key={highlight}
-                    className="flex items-start gap-3 rounded-2xl border border-border bg-background/40 p-3.5"
-                    initial={{ opacity: 0, x: -10 }}
-                    whileInView={{ opacity: 1, x: 0 }}
-                    viewport={{ once: true }}
-                    transition={{
-                      delay: 0.1 + index * 0.05,
-                      duration: 0.4,
-                    }}
-                  >
-                    <span className="mt-1 flex h-4 w-4 shrink-0 items-center justify-center rounded-full border border-primary/30 bg-primary/[0.08]">
-                      <span className="h-1.5 w-1.5 rounded-full bg-primary" />
-                    </span>
-
-                    <span className="text-xs leading-5 text-foreground-muted">
-                      {highlight}
-                    </span>
-                  </motion.div>
-                ))}
-              </div>
-            </div>
-          </motion.div>
-
-          {/* Right: stats */}
-          <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-1">
-            {profile.stats.map((stat, index) => (
-              <motion.div
-                key={stat.label}
-                className="group relative overflow-hidden rounded-3xl border border-border bg-white/[0.02] p-6 sm:p-7"
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true, amount: 0.2 }}
-                variants={reveal}
+            return (
+              <motion.article
+                key={item.label}
+                className="group relative overflow-hidden rounded-2xl border border-border bg-card p-5 transition-all duration-500 hover:-translate-y-1 hover:border-primary/15 hover:bg-card-hover"
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.15 }}
                 transition={{
-                  delay: index * 0.07,
+                  duration: 0.55,
+                  delay: index * 0.08,
+                  ease: [0.16, 1, 0.3, 1],
                 }}
               >
-                <div className="absolute right-0 top-0 h-24 w-24 translate-x-1/3 -translate-y-1/3 rounded-full bg-primary/[0.06] blur-2xl transition-all duration-500 group-hover:bg-primary/[0.1]" />
+                <div className="absolute right-0 top-0 h-24 w-24 translate-x-1/3 -translate-y-1/3 rounded-full bg-primary/[0.04] blur-2xl transition-opacity duration-500 group-hover:bg-primary/[0.08]" />
 
                 <div className="relative">
-                  <p className="font-mono text-[10px] uppercase tracking-[0.18em] text-foreground-subtle">
-                    {String(index + 1).padStart(2, "0")}
-                  </p>
-
-                  <p className="mt-4 text-3xl font-semibold tracking-[-0.04em] text-foreground">
-                    {stat.value}
-                  </p>
-
-                  <p className="mt-1 text-xs text-foreground-muted">
-                    {stat.label}
-                  </p>
-                </div>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-
-        {/* Capability preview */}
-        <motion.div
-          className="mt-5 overflow-hidden rounded-3xl border border-border bg-white/[0.02]"
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.15 }}
-          variants={reveal}
-        >
-          <div className="grid lg:grid-cols-3">
-            {primaryCapabilities.map((capability, index) => {
-              const icons = [
-                Workflow,
-                Layers3,
-                BrainCircuit,
-              ];
-
-              const CapabilityIcon = icons[index];
-
-              return (
-                <div
-                  key={capability.id}
-                  className={`relative p-6 sm:p-8 ${
-                    index !== primaryCapabilities.length - 1
-                      ? "border-b border-border lg:border-b-0 lg:border-r"
-                      : ""
-                  }`}
-                >
-                  <div className="flex items-center justify-between">
-                    <div className="flex h-10 w-10 items-center justify-center rounded-xl border border-primary/20 bg-primary/[0.06] text-primary">
-                      <CapabilityIcon size={18} strokeWidth={1.6} />
-                    </div>
-
-                    <span className="font-mono text-[10px] text-foreground-subtle">
-                      {capability.category}
-                    </span>
+                  <div className="flex h-10 w-10 items-center justify-center rounded-xl border border-border bg-white/[0.02] text-primary transition-colors duration-300 group-hover:border-primary/20 group-hover:bg-primary/[0.05]">
+                    <Icon size={17} strokeWidth={1.7} />
                   </div>
 
-                  <h3 className="mt-6 text-base font-semibold text-foreground">
-                    {capability.title}
-                  </h3>
-
-                  <p className="mt-3 text-xs leading-6 text-foreground-muted">
-                    {capability.description}
+                  <p className="mt-6 font-mono text-[8px] uppercase tracking-[0.16em] text-foreground-subtle">
+                    0{index + 1}
                   </p>
 
-                  <a
-                    href="#skills"
-                    className="mt-5 inline-flex items-center gap-1.5 text-[11px] font-medium text-primary transition-colors hover:text-primary-bright"
-                  >
-                    Explore capabilities
-                    <ArrowUpRight size={13} />
-                  </a>
+                  <h3 className="mt-2 text-sm font-semibold text-foreground">
+                    {item.label}
+                  </h3>
+
+                  <p className="mt-3 text-xs leading-6 text-foreground-subtle">
+                    {item.description}
+                  </p>
                 </div>
-              );
-            })}
+              </motion.article>
+            );
+          })}
+        </div>
+
+        {/* Career statement */}
+        <motion.div
+          className="mt-4 overflow-hidden rounded-2xl border border-border bg-white/[0.015]"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.15 }}
+          transition={{
+            duration: 0.7,
+            delay: 0.15,
+          }}
+        >
+          <div className="grid lg:grid-cols-[1fr_auto] lg:items-center">
+            <div className="p-6 sm:p-8">
+              <p className="font-mono text-[8px] uppercase tracking-[0.18em] text-primary">
+                Professional approach
+              </p>
+
+              <p className="mt-4 max-w-3xl text-sm leading-7 text-foreground-muted sm:text-base sm:leading-8">
+                From development and troubleshooting to consulting and
+                architecture, the goal is consistent: build automation that
+                creates measurable value while remaining understandable,
+                maintainable and ready for the next stage of growth.
+              </p>
+            </div>
+
+            <a
+              href="#experience"
+              className="group flex items-center gap-3 border-t border-border px-6 py-5 text-xs font-medium text-foreground-muted transition-colors hover:text-primary lg:border-l lg:border-t-0 lg:px-8"
+            >
+              Explore the journey
+
+              <ArrowUpRight
+                size={14}
+                className="transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
+              />
+            </a>
           </div>
         </motion.div>
       </div>
