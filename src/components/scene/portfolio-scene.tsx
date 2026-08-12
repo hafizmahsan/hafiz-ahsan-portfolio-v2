@@ -1,8 +1,12 @@
 "use client";
 
 import { Canvas, useFrame } from "@react-three/fiber";
-import { Float, Line, PerspectiveCamera } from "@react-three/drei";
-import { useMemo, useRef } from "react";
+import {
+  Float,
+  Line,
+  PerspectiveCamera,
+} from "@react-three/drei";
+import { useEffect, useMemo, useRef } from "react";
 import * as THREE from "three";
 
 type Node = {
@@ -10,8 +14,30 @@ type Node = {
   scale: number;
 };
 
+function useMousePosition() {
+  const mouse = useRef({ x: 0, y: 0 });
+
+  useEffect(() => {
+    const handlePointerMove = (event: PointerEvent) => {
+      mouse.current.x = (event.clientX / window.innerWidth) * 2 - 1;
+      mouse.current.y = -(event.clientY / window.innerHeight) * 2 + 1;
+    };
+
+    window.addEventListener("pointermove", handlePointerMove, {
+      passive: true,
+    });
+
+    return () => {
+      window.removeEventListener("pointermove", handlePointerMove);
+    };
+  }, []);
+
+  return mouse;
+}
+
 function NetworkCore() {
   const groupRef = useRef<THREE.Group>(null);
+  const mouse = useMousePosition();
 
   const nodes = useMemo<Node[]>(
     () => [
@@ -29,16 +55,43 @@ function NetworkCore() {
   useFrame((state, delta) => {
     if (!groupRef.current) return;
 
-    groupRef.current.rotation.y += delta * 0.12;
-    groupRef.current.rotation.x =
-      Math.sin(state.clock.elapsedTime * 0.35) * 0.08;
+    const targetRotationY = mouse.current.x * 0.28;
+    const targetRotationX = mouse.current.y * 0.16;
+
+    groupRef.current.rotation.y = THREE.MathUtils.lerp(
+      groupRef.current.rotation.y,
+      targetRotationY + state.clock.elapsedTime * 0.08,
+      0.025,
+    );
+
+    groupRef.current.rotation.x = THREE.MathUtils.lerp(
+      groupRef.current.rotation.x,
+      targetRotationX,
+      0.025,
+    );
+
+    groupRef.current.position.x = THREE.MathUtils.lerp(
+      groupRef.current.position.x,
+      mouse.current.x * 0.12,
+      0.02,
+    );
+
+    groupRef.current.position.y = THREE.MathUtils.lerp(
+      groupRef.current.position.y,
+      mouse.current.y * 0.08,
+      0.02,
+    );
+
+    groupRef.current.position.z +=
+      Math.sin(state.clock.elapsedTime * 0.7) * delta * 0.006;
   });
 
   return (
     <group ref={groupRef}>
-      {/* Central core */}
+      {/* Central automation core */}
       <mesh>
         <icosahedronGeometry args={[0.38, 2]} />
+
         <meshStandardMaterial
           color="#67e8f9"
           emissive="#0891b2"
@@ -58,8 +111,16 @@ function NetworkCore() {
           <sphereGeometry args={[0.09, 16, 16]} />
 
           <meshStandardMaterial
-            color={index % 2 === 0 ? "#67e8f9" : "#a78bfa"}
-            emissive={index % 2 === 0 ? "#0891b2" : "#7c3aed"}
+            color={
+              index % 2 === 0
+                ? "#67e8f9"
+                : "#a78bfa"
+            }
+            emissive={
+              index % 2 === 0
+                ? "#0891b2"
+                : "#7c3aed"
+            }
             emissiveIntensity={2}
             roughness={0.3}
             metalness={0.5}
@@ -67,7 +128,7 @@ function NetworkCore() {
         </mesh>
       ))}
 
-      {/* Connections */}
+      {/* Primary network connections */}
       <Line
         points={[
           nodes[0].position,
@@ -87,6 +148,7 @@ function NetworkCore() {
         lineWidth={0.7}
       />
 
+      {/* Secondary connections */}
       <Line
         points={[
           nodes[1].position,
@@ -99,9 +161,10 @@ function NetworkCore() {
         lineWidth={0.5}
       />
 
-      {/* Inner orbital rings */}
+      {/* Orbital rings */}
       <mesh rotation={[Math.PI / 2, 0, 0]}>
         <torusGeometry args={[0.72, 0.006, 8, 96]} />
+
         <meshBasicMaterial
           color="#22d3ee"
           transparent
@@ -111,6 +174,7 @@ function NetworkCore() {
 
       <mesh rotation={[0.65, 0.3, 0.4]}>
         <torusGeometry args={[1.2, 0.004, 8, 96]} />
+
         <meshBasicMaterial
           color="#a78bfa"
           transparent
@@ -120,6 +184,7 @@ function NetworkCore() {
 
       <mesh rotation={[1.1, -0.4, 0.2]}>
         <torusGeometry args={[1.65, 0.003, 8, 96]} />
+
         <meshBasicMaterial
           color="#22d3ee"
           transparent
@@ -199,7 +264,7 @@ function SceneContents() {
 export function PortfolioScene() {
   return (
     <div
-      className="pointer-events-none h-full w-full"
+      className="h-full w-full"
       aria-hidden="true"
     >
       <Canvas
