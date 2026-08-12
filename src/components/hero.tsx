@@ -1,4 +1,21 @@
+import dynamic from "next/dynamic";
 import { profile } from "@/data/profile";
+
+const PortfolioScene = dynamic(
+  () =>
+    import("@/components/scene/portfolio-scene").then(
+      (mod) => mod.PortfolioScene,
+    ),
+  {
+    ssr: false,
+    loading: () => (
+      <div
+        className="h-full w-full"
+        aria-hidden="true"
+      />
+    ),
+  },
+);
 
 export function Hero() {
   const { hero, stats } = profile;
@@ -6,12 +23,20 @@ export function Hero() {
   return (
     <section
       id="home"
-      className="ambient-glow relative flex min-h-screen items-center"
+      className="ambient-glow relative flex min-h-screen items-center overflow-hidden"
     >
       {/* Technical background */}
       <div className="grid-background absolute inset-0 opacity-50" />
 
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_0%,var(--background)_72%)]" />
+
+      {/* 3D scene */}
+      <div
+        className="pointer-events-none absolute right-[-8%] top-1/2 hidden h-[46rem] w-[46rem] -translate-y-1/2 lg:block xl:right-[-4%]"
+        aria-hidden="true"
+      >
+        <PortfolioScene />
+      </div>
 
       {/* Main content */}
       <div className="relative z-10 mx-auto w-full max-w-7xl px-6 pb-20 pt-32 lg:px-8">
@@ -81,20 +106,13 @@ export function Hero() {
         </div>
       </div>
 
-      {/* Temporary 3D atmosphere */}
-      <div
-        className="pointer-events-none absolute right-[-12rem] top-1/2 hidden h-[42rem] w-[42rem] -translate-y-1/2 lg:block"
-        aria-hidden="true"
-      >
-        <div className="absolute inset-[15%] animate-pulse-glow rounded-full border border-primary/10 bg-primary/[0.025] blur-[1px]" />
+      {/* Scroll cue */}
+      <div className="absolute bottom-8 left-1/2 z-10 hidden -translate-x-1/2 flex-col items-center gap-3 text-foreground-subtle sm:flex">
+        <span className="font-mono text-[9px] uppercase tracking-[0.2em]">
+          Scroll
+        </span>
 
-        <div className="absolute inset-[25%] animate-float rounded-full border border-secondary/20 bg-gradient-to-br from-primary/[0.08] to-secondary/[0.05] shadow-[0_0_100px_rgba(34,211,238,0.08)]" />
-
-        <div className="absolute inset-[38%] rounded-full bg-primary/20 blur-[50px]" />
-
-        <div className="absolute inset-[39%] rounded-full border border-primary/30 bg-background/60 backdrop-blur-md" />
-
-        <div className="absolute inset-[47%] rounded-full bg-primary/40 shadow-[0_0_40px_rgba(34,211,238,0.4)]" />
+        <span className="h-10 w-px bg-gradient-to-b from-primary/70 to-transparent" />
       </div>
     </section>
   );
