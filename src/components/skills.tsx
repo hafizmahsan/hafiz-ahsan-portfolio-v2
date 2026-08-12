@@ -2,159 +2,108 @@
 
 import { motion } from "framer-motion";
 import {
-  BrainCircuit,
-  Check,
-  Code2,
+  Bot,
+  Braces,
+  CloudCog,
+  Database,
+  GitBranch,
   Layers3,
-  Network,
   Workflow,
 } from "lucide-react";
 
-import { skillGroups, technologyStack } from "@/data/skills";
+import { skills } from "@/data/skills";
 
-const icons = [
+const categoryIcons = [
+  Bot,
   Workflow,
   Layers3,
-  Network,
-  BrainCircuit,
-  Code2,
-  Check,
+  CloudCog,
+  Database,
+  GitBranch,
+  Braces,
 ];
-
-const reveal = {
-  hidden: {
-    opacity: 0,
-    y: 24,
-  },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: {
-      duration: 0.65,
-      ease: [0.16, 1, 0.3, 1],
-    },
-  },
-};
 
 export function Skills() {
   return (
     <section
       id="skills"
-      className="relative border-t border-border py-24 sm:py-32 lg:py-40"
+      className="relative border-t border-border py-24 sm:py-28 lg:py-36"
     >
-      <div className="relative mx-auto max-w-7xl px-5 sm:px-6 lg:px-8">
+      <div className="mx-auto max-w-7xl px-5 sm:px-6 lg:px-8">
         {/* Header */}
         <motion.div
           className="max-w-3xl"
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.25 }}
-          variants={reveal}
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.2 }}
+          transition={{
+            duration: 0.7,
+            ease: [0.16, 1, 0.3, 1],
+          }}
         >
-          <div className="mb-5 flex items-center gap-3">
-            <span className="h-px w-8 bg-primary" />
+          <p className="font-mono text-[9px] uppercase tracking-[0.22em] text-primary">
+            02 · Capabilities
+          </p>
 
-            <span className="font-mono text-[10px] uppercase tracking-[0.22em] text-primary">
-              Capabilities
+          <h2 className="mt-4 text-2xl font-semibold tracking-tight text-foreground sm:text-3xl">
+            Tools are the implementation layer.
+            <br />
+            <span className="text-foreground-muted">
+              Architecture is the advantage.
             </span>
-          </div>
-
-          <h2 className="text-balance text-3xl font-semibold tracking-[-0.04em] text-foreground sm:text-4xl lg:text-5xl">
-            The systems I work across.
           </h2>
 
-          <p className="mt-6 max-w-2xl text-sm leading-7 text-foreground-muted sm:text-base sm:leading-8">
-            A combination of automation engineering, solution architecture,
-            enterprise integration and consulting experience developed through
-            real-world technology environments.
+          <p className="mt-5 max-w-2xl text-sm leading-7 text-foreground-subtle sm:text-base sm:leading-8">
+            A practical technology stack built around enterprise automation,
+            process engineering, integration and scalable solution delivery.
           </p>
         </motion.div>
 
-        {/* Capability matrix */}
-        <div className="mt-14 grid gap-px overflow-hidden rounded-3xl border border-border bg-border lg:mt-20 lg:grid-cols-2">
-          {skillGroups.map((group, index) => {
-            const Icon = icons[index % icons.length];
+        {/* Capability grid */}
+        <div className="mt-14 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+          {skills.map((group, index) => {
+            const Icon =
+              categoryIcons[index % categoryIcons.length];
 
             return (
               <motion.article
-                key={group.id}
-                className="group relative bg-background p-6 transition-colors duration-500 hover:bg-white/[0.025] sm:p-8"
-                initial="hidden"
-                whileInView="visible"
-                viewport={{
-                  once: true,
-                  amount: 0.15,
-                }}
-                variants={reveal}
+                key={group.category}
+                className="group relative overflow-hidden rounded-2xl border border-border bg-card p-6 transition-all duration-500 hover:-translate-y-1 hover:border-primary/15 hover:bg-card-hover"
+                initial={{ opacity: 0, y: 22 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.12 }}
                 transition={{
-                  delay: index * 0.05,
+                  duration: 0.55,
+                  delay: index * 0.06,
+                  ease: [0.16, 1, 0.3, 1],
                 }}
               >
-                <div
-                  aria-hidden="true"
-                  className="pointer-events-none absolute right-0 top-0 h-32 w-32 translate-x-1/3 -translate-y-1/3 rounded-full bg-cyan-400/[0.035] blur-3xl transition-all duration-500 group-hover:bg-cyan-400/[0.07]"
-                />
+                {/* Accent glow */}
+                <div className="pointer-events-none absolute -right-10 -top-10 h-32 w-32 rounded-full bg-primary/[0.045] blur-3xl transition-all duration-500 group-hover:bg-primary/[0.09]" />
 
                 <div className="relative">
-                  {/* Card header */}
-                  <div className="flex items-start justify-between gap-6">
-                    <div className="flex items-center gap-4">
-                      <div className="flex h-11 w-11 items-center justify-center rounded-2xl border border-primary/20 bg-primary/[0.06] text-primary">
-                        <Icon size={19} strokeWidth={1.6} />
-                      </div>
-
-                      <div>
-                        <span className="font-mono text-[9px] uppercase tracking-[0.2em] text-foreground-subtle">
-                          {group.category}
-                        </span>
-
-                        <h3 className="mt-1 text-base font-semibold tracking-tight text-foreground">
-                          {group.title}
-                        </h3>
-                      </div>
+                  <div className="flex items-start justify-between">
+                    <div className="flex h-10 w-10 items-center justify-center rounded-xl border border-border bg-white/[0.02] text-primary transition-all duration-300 group-hover:border-primary/20 group-hover:bg-primary/[0.05]">
+                      <Icon size={17} strokeWidth={1.6} />
                     </div>
 
-                    <span className="hidden font-mono text-[9px] uppercase tracking-[0.16em] text-foreground-subtle sm:block">
-                      Capability
+                    <span className="font-mono text-[8px] tracking-[0.15em] text-foreground-subtle">
+                      {String(index + 1).padStart(2, "0")}
                     </span>
                   </div>
 
-                  {/* Description */}
-                  <p className="mt-6 max-w-xl text-xs leading-6 text-foreground-muted">
-                    {group.description}
-                  </p>
+                  <h3 className="mt-6 text-sm font-semibold text-foreground">
+                    {group.category}
+                  </h3>
 
-                  {/* Skills */}
-                  <div className="mt-7 space-y-3">
-                    {group.skills.map((skill) => (
-                      <div
-                        key={skill.name}
-                        className="flex items-center justify-between gap-4 border-b border-border/70 pb-3 last:border-0 last:pb-0"
+                  <div className="mt-5 flex flex-wrap gap-2">
+                    {group.items.map((skill) => (
+                      <span
+                        key={skill}
+                        className="rounded-lg border border-border bg-white/[0.02] px-2.5 py-1.5 font-mono text-[9px] text-foreground-muted transition-colors duration-300 group-hover:border-border-strong group-hover:text-foreground"
                       >
-                        <span className="text-xs text-foreground-muted">
-                          {skill.name}
-                        </span>
-
-                        <div className="flex shrink-0 items-center gap-3">
-                          {skill.years && (
-                            <span className="hidden font-mono text-[9px] text-foreground-subtle sm:block">
-                              {skill.years}
-                            </span>
-                          )}
-
-                          <span
-                            className={`rounded-full border px-2.5 py-1 font-mono text-[8px] uppercase tracking-[0.12em] ${
-                              skill.level === "Expert"
-                                ? "border-primary/25 bg-primary/[0.07] text-primary"
-                                : skill.level === "Advanced"
-                                  ? "border-violet-400/20 bg-violet-400/[0.05] text-violet-300"
-                                  : "border-border bg-white/[0.02] text-foreground-subtle"
-                            }`}
-                          >
-                            {skill.level}
-                          </span>
-                        </div>
-                      </div>
+                        {skill}
+                      </span>
                     ))}
                   </div>
                 </div>
@@ -163,47 +112,35 @@ export function Skills() {
           })}
         </div>
 
-        {/* Technology stack */}
+        {/* Bottom statement */}
         <motion.div
-          className="mt-5 rounded-3xl border border-border bg-white/[0.02] p-6 sm:p-8"
-          initial="hidden"
-          whileInView="visible"
+          className="mt-4 rounded-2xl border border-primary/10 bg-primary/[0.025] p-6 sm:p-8"
+          initial={{ opacity: 0, y: 18 }}
+          whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.15 }}
-          variants={reveal}
+          transition={{
+            duration: 0.65,
+            delay: 0.15,
+          }}
         >
-          <div className="flex flex-col gap-5 sm:flex-row sm:items-center sm:justify-between">
+          <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
             <div>
-              <p className="font-mono text-[9px] uppercase tracking-[0.2em] text-primary">
-                Technology focus
+              <p className="font-mono text-[8px] uppercase tracking-[0.18em] text-primary">
+                Engineering principle
               </p>
 
-              <h3 className="mt-2 text-sm font-semibold text-foreground">
-                Tools, systems and disciplines
-              </h3>
+              <p className="mt-2 text-sm text-foreground-muted">
+                Select the technology based on the problem — not the other way
+                around.
+              </p>
             </div>
 
-            <p className="max-w-md text-xs leading-5 text-foreground-subtle sm:text-right">
-              A flexible technology foundation supporting enterprise
-              automation and solution delivery.
-            </p>
-          </div>
-
-          <div className="mt-6 flex flex-wrap gap-2">
-            {technologyStack.map((technology, index) => (
-              <motion.span
-                key={technology}
-                className="rounded-full border border-border bg-background px-3.5 py-2 font-mono text-[9px] uppercase tracking-[0.08em] text-foreground-muted transition-colors hover:border-primary/20 hover:text-primary"
-                initial={{ opacity: 0, scale: 0.96 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                viewport={{ once: true }}
-                transition={{
-                  delay: index * 0.025,
-                  duration: 0.3,
-                }}
-              >
-                {technology}
-              </motion.span>
-            ))}
+            <a
+              href="#experience"
+              className="shrink-0 text-xs font-medium text-primary transition-colors hover:text-primary-bright"
+            >
+              See how it has been applied →
+            </a>
           </div>
         </motion.div>
       </div>
