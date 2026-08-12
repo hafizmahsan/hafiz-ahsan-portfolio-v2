@@ -92,12 +92,6 @@ export const metadata: Metadata = {
       "Senior RPA Consultant and Solution Architect specializing in enterprise automation and RPA.",
   },
 
-  icons: {
-    icon: "/favicon.ico",
-    shortcut: "/favicon.ico",
-    apple: "/apple-touch-icon.png",
-  },
-
   manifest: "/site.webmanifest",
 };
 
