@@ -1,0 +1,18 @@
+{
+  "name": "Hafiz Mahsan — Senior RPA Consultant & Solution Architect",
+  "short_name": "Hafiz Mahsan",
+  "description": "Professional portfolio of Hafiz Mahsan, Senior RPA Consultant and Solution Architect specializing in enterprise automation, RPA and technology solutions.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#07090d",
+  "theme_color": "#07090d",
+  "orientation": "portrait-primary",
+  "lang": "en",
+  "dir": "ltr",
+  "categories": [
+    "business",
+    "technology",
+    "productivity"
+  ]
+}
