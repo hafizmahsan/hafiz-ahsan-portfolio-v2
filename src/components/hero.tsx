@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 import { ArrowDown, ArrowUpRight, MapPin } from "lucide-react";
 
 import { profile } from "@/data/profile";
-import { PortfolioScene } from "@/components/portfolio-scene";
+import { PortfolioScene } from "@/components/scenes/portfolio-scene";
 
 export function Hero() {
   return (
