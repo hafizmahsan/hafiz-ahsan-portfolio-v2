@@ -1,119 +1,238 @@
+"use client";
+
+import { motion } from "framer-motion";
+import {
+  ArrowUpRight,
+  Building2,
+  CalendarDays,
+  MapPin,
+} from "lucide-react";
+
 import { experience } from "@/data/experience";
+
+const reveal = {
+  hidden: {
+    opacity: 0,
+    y: 24,
+  },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.65,
+      ease: [0.16, 1, 0.3, 1],
+    },
+  },
+};
 
 export function Experience() {
   return (
     <section
       id="experience"
-      className="relative border-t border-border px-6 py-24 lg:px-8 lg:py-32"
+      className="relative border-t border-border py-24 sm:py-32 lg:py-40"
     >
-      <div className="mx-auto max-w-7xl">
+      <div className="mx-auto max-w-7xl px-5 sm:px-6 lg:px-8">
         {/* Header */}
-        <div className="grid gap-6 lg:grid-cols-[1fr_auto] lg:items-end">
-          <div>
-            <p className="font-mono text-xs uppercase tracking-[0.22em] text-primary">
-              02 / Experience
-            </p>
+        <motion.div
+          className="max-w-3xl"
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.25 }}
+          variants={reveal}
+        >
+          <div className="mb-5 flex items-center gap-3">
+            <span className="h-px w-8 bg-primary" />
 
-            <h2 className="mt-6 max-w-3xl font-display text-3xl font-semibold tracking-tight text-foreground sm:text-5xl">
-              Six years of solving complex problems with automation.
-            </h2>
+            <span className="font-mono text-[10px] uppercase tracking-[0.22em] text-primary">
+              Experience
+            </span>
           </div>
 
-          <span className="font-mono text-xs text-foreground-subtle">
-            2020 — PRESENT
-          </span>
-        </div>
+          <h2 className="text-balance text-3xl font-semibold tracking-[-0.04em] text-foreground sm:text-4xl lg:text-5xl">
+            Six years of evolving with automation.
+          </h2>
+
+          <p className="mt-6 max-w-2xl text-sm leading-7 text-foreground-muted sm:text-base sm:leading-8">
+            From enterprise IT and RPA development to consulting and solution
+            architecture, each stage of my career has expanded the way I
+            approach automation problems.
+          </p>
+        </motion.div>
 
         {/* Timeline */}
-        <div className="relative mt-16">
-          {/* Timeline line */}
+        <div className="relative mt-16 lg:mt-24">
+          {/* Central line — desktop */}
           <div
-            className="absolute bottom-0 left-[7px] top-0 w-px bg-gradient-to-b from-primary via-border to-transparent"
             aria-hidden="true"
+            className="absolute bottom-0 left-[22px] top-0 hidden w-px bg-gradient-to-b from-primary/50 via-border to-transparent md:block"
           />
 
-          <div className="space-y-0">
+          <div className="space-y-8">
             {experience.map((item, index) => (
-              <article
+              <motion.article
                 key={item.id}
-                className="group relative grid gap-6 pb-12 pl-10 last:pb-0 md:grid-cols-[180px_1fr] md:gap-10 md:pl-0"
+                className="relative md:pl-16"
+                initial="hidden"
+                whileInView="visible"
+                viewport={{
+                  once: true,
+                  amount: 0.12,
+                }}
+                variants={reveal}
+                transition={{
+                  delay: Math.min(index * 0.04, 0.2),
+                }}
               >
-                {/* Timeline point */}
+                {/* Timeline marker */}
                 <div
-                  className="absolute left-0 top-1.5 h-[15px] w-[15px] rounded-full border border-primary/50 bg-background transition-all duration-300 group-hover:border-primary group-hover:bg-primary group-hover:shadow-[0_0_20px_rgba(34,211,238,0.35)] md:left-[180px] md:-translate-x-1/2"
                   aria-hidden="true"
-                />
-
-                {/* Date */}
-                <div className="md:pt-1">
-                  <p className="font-mono text-xs text-primary">
-                    {item.period}
-                  </p>
-
-                  <p className="mt-2 text-[10px] uppercase tracking-wider text-foreground-subtle">
-                    {item.companyType}
-                  </p>
+                  className="absolute left-[15px] top-8 hidden h-[15px] w-[15px] items-center justify-center rounded-full border border-primary/40 bg-background md:flex"
+                >
+                  <span className="h-1.5 w-1.5 rounded-full bg-primary shadow-[0_0_12px_rgba(34,211,238,0.7)]" />
                 </div>
 
-                {/* Experience card */}
-                <div className="rounded-2xl border border-border bg-white/[0.015] p-6 transition-all duration-300 group-hover:border-primary/20 group-hover:bg-primary/[0.02] sm:p-7">
-                  <div className="flex flex-col justify-between gap-3 sm:flex-row sm:items-start">
-                    <div>
-                      <h3 className="font-display text-xl font-semibold tracking-tight text-foreground">
-                        {item.role}
-                      </h3>
+                {/* Card */}
+                <div className="group relative overflow-hidden rounded-3xl border border-border bg-white/[0.02] transition-colors duration-500 hover:border-primary/15 hover:bg-white/[0.035]">
+                  {/* Current role accent */}
+                  {index === 0 && (
+                    <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-primary to-transparent opacity-60" />
+                  )}
 
-                      <p className="mt-1 text-sm text-primary/80">
-                        {item.company}
-                      </p>
+                  <div className="grid lg:grid-cols-[0.32fr_0.68fr]">
+                    {/* Meta */}
+                    <div className="border-b border-border p-6 lg:border-b-0 lg:border-r lg:p-8">
+                      <div className="flex items-center justify-between lg:block">
+                        <span className="font-mono text-[10px] uppercase tracking-[0.16em] text-primary">
+                          {item.period}
+                        </span>
+
+                        {index === 0 && (
+                          <span className="rounded-full border border-primary/20 bg-primary/[0.06] px-2.5 py-1 font-mono text-[8px] uppercase tracking-[0.12em] text-primary lg:mt-4 lg:inline-flex">
+                            Current
+                          </span>
+                        )}
+                      </div>
+
+                      <div className="mt-6 space-y-3">
+                        <div className="flex items-start gap-2.5">
+                          <Building2
+                            size={14}
+                            strokeWidth={1.6}
+                            className="mt-0.5 shrink-0 text-foreground-subtle"
+                          />
+
+                          <span className="text-xs leading-5 text-foreground-muted">
+                            {item.company}
+                          </span>
+                        </div>
+
+                        <div className="flex items-start gap-2.5">
+                          <MapPin
+                            size={14}
+                            strokeWidth={1.6}
+                            className="mt-0.5 shrink-0 text-foreground-subtle"
+                          />
+
+                          <span className="text-xs leading-5 text-foreground-muted">
+                            {item.location}
+                          </span>
+                        </div>
+
+                        <div className="flex items-start gap-2.5">
+                          <CalendarDays
+                            size={14}
+                            strokeWidth={1.6}
+                            className="mt-0.5 shrink-0 text-foreground-subtle"
+                          />
+
+                          <span className="text-xs leading-5 text-foreground-muted">
+                            {item.type}
+                          </span>
+                        </div>
+                      </div>
+
+                      {item.relationship && (
+                        <div className="mt-6 rounded-2xl border border-border bg-background/50 p-3.5">
+                          <p className="font-mono text-[8px] uppercase tracking-[0.15em] text-foreground-subtle">
+                            Engagement
+                          </p>
+
+                          <p className="mt-1.5 text-[11px] leading-5 text-foreground-muted">
+                            {item.relationship}
+                          </p>
+                        </div>
+                      )}
                     </div>
 
-                    {item.featured && (
-                      <span className="w-fit rounded-full border border-primary/20 bg-primary/5 px-3 py-1 font-mono text-[9px] uppercase tracking-wider text-primary">
-                        Featured
-                      </span>
-                    )}
-                  </div>
+                    {/* Content */}
+                    <div className="p-6 sm:p-8 lg:p-10">
+                      <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
+                        <div>
+                          <h3 className="text-xl font-semibold tracking-[-0.025em] text-foreground sm:text-2xl">
+                            {item.role}
+                          </h3>
 
-                  <p className="mt-5 max-w-3xl text-sm leading-6 text-foreground-muted">
-                    {item.description}
-                  </p>
+                          <p className="mt-2 text-sm font-medium text-primary">
+                            {item.company}
+                          </p>
+                        </div>
 
-                  {/* Highlights */}
-                  <div className="mt-6 grid gap-2 sm:grid-cols-2">
-                    {item.highlights.map((highlight) => (
-                      <div
-                        key={highlight}
-                        className="flex gap-2 text-xs leading-5 text-foreground-subtle"
-                      >
-                        <span
-                          className="mt-2 h-1 w-1 shrink-0 rounded-full bg-primary/70"
-                          aria-hidden="true"
-                        />
-
-                        <span>{highlight}</span>
+                        <span className="hidden rounded-full border border-border bg-background px-3 py-1.5 font-mono text-[8px] uppercase tracking-[0.12em] text-foreground-subtle sm:block">
+                          {item.startDate} → {item.endDate}
+                        </span>
                       </div>
-                    ))}
-                  </div>
 
-                  {/* Technologies */}
-                  <div className="mt-6 flex flex-wrap gap-2">
-                    {item.technologies.map((technology) => (
-                      <span
-                        key={technology}
-                        className="rounded-full bg-white/[0.04] px-3 py-1.5 text-[10px] text-foreground-subtle"
-                      >
-                        {technology}
-                      </span>
-                    ))}
+                      <p className="mt-6 max-w-3xl text-sm leading-7 text-foreground-muted">
+                        {item.description}
+                      </p>
+
+                      {/* Achievements */}
+                      <div className="mt-8">
+                        <p className="font-mono text-[9px] uppercase tracking-[0.18em] text-foreground-subtle">
+                          Key contributions
+                        </p>
+
+                        <div className="mt-4 grid gap-3 sm:grid-cols-2">
+                          {item.achievements.map((achievement) => (
+                            <div
+                              key={achievement}
+                              className="flex gap-3 rounded-2xl border border-border bg-background/40 p-3.5"
+                            >
+                              <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-primary" />
+
+                              <span className="text-xs leading-5 text-foreground-muted">
+                                {achievement}
+                              </span>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+
+                      {/* Technologies */}
+                      <div className="mt-8 flex flex-wrap gap-2">
+                        {item.technologies.map((technology) => (
+                          <span
+                            key={technology}
+                            className="rounded-full border border-border px-2.5 py-1.5 font-mono text-[8px] uppercase tracking-[0.08em] text-foreground-subtle transition-colors group-hover:border-primary/15 group-hover:text-foreground-muted"
+                          >
+                            {technology}
+                          </span>
+                        ))}
+                      </div>
+
+                      <div className="mt-8 flex items-center gap-2 text-[10px] text-foreground-subtle">
+                        <span>Career progression</span>
+
+                        <ArrowUpRight
+                          size={12}
+                          strokeWidth={1.6}
+                          className="transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
+                        />
+                      </div>
+                    </div>
                   </div>
                 </div>
-
-                {/* Progress indicator */}
-                <span className="absolute bottom-12 right-0 font-mono text-[9px] text-foreground-subtle/40 md:bottom-12">
-                  {String(index + 1).padStart(2, "0")}
-                </span>
-              </article>
+              </motion.article>
             ))}
           </div>
         </div>
