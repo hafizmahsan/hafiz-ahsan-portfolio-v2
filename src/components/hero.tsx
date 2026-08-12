@@ -1,160 +1,133 @@
 "use client";
 
 import { motion } from "framer-motion";
-import {
-  ArrowDown,
-  ArrowUpRight,
-  BriefcaseBusiness,
-  MapPin,
-} from "lucide-react";
+import { ArrowDown, ArrowUpRight, MapPin } from "lucide-react";
 
 import { profile } from "@/data/profile";
 import { PortfolioScene } from "@/components/portfolio-scene";
-import { useReducedMotion } from "@/hooks/use-reduced-motion";
-
-const reveal = {
-  hidden: {
-    opacity: 0,
-    y: 20,
-  },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: {
-      duration: 0.7,
-      ease: [0.16, 1, 0.3, 1],
-    },
-  },
-};
 
 export function Hero() {
-  const reducedMotion = useReducedMotion();
-
   return (
     <section
       id="hero"
-      className="relative isolate min-h-[100svh] overflow-hidden"
+      className="relative min-h-[100svh] overflow-hidden border-b border-border"
     >
-      {/* Background atmosphere */}
+      {/* Ambient background */}
       <div
         aria-hidden="true"
         className="pointer-events-none absolute inset-0 -z-10"
       >
-        <div className="absolute left-1/2 top-[18%] h-[520px] w-[520px] -translate-x-1/2 rounded-full bg-cyan-400/[0.055] blur-[130px]" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_35%,rgba(34,211,238,0.055),transparent_34%)]" />
 
-        <div className="absolute right-[-12%] top-[20%] h-[420px] w-[420px] rounded-full bg-violet-500/[0.04] blur-[120px]" />
-
-        <div className="absolute bottom-[-15%] left-[-10%] h-[420px] w-[420px] rounded-full bg-cyan-500/[0.025] blur-[120px]" />
+        <div className="absolute inset-0 opacity-40 [background-image:linear-gradient(rgba(255,255,255,0.025)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.025)_1px,transparent_1px)] [background-size:64px_64px]" />
       </div>
 
-      {/* Technical grid */}
+      {/* 3D visual */}
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute inset-0 -z-10 opacity-40"
+        className="pointer-events-none absolute inset-0 -z-0"
       >
-        <div className="grid-background absolute inset-0 [mask-image:linear-gradient(to_bottom,black_10%,transparent_80%)]" />
+        <div className="absolute inset-x-0 top-0 h-full opacity-70 sm:opacity-80">
+          <PortfolioScene />
+        </div>
+
+        {/* Readability gradient */}
+        <div className="absolute inset-0 bg-gradient-to-b from-background/20 via-background/45 to-background" />
+        <div className="absolute inset-0 bg-gradient-to-r from-background via-background/20 to-transparent" />
       </div>
 
-      {/* 3D layer */}
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute inset-0 -z-[5]"
-      >
-        {!reducedMotion && (
-          <div className="absolute inset-0 opacity-80">
-            <PortfolioScene />
-          </div>
-        )}
-      </div>
-
-      {/* Content */}
-      <div className="relative mx-auto flex min-h-[100svh] max-w-7xl items-center px-5 pb-20 pt-28 sm:px-6 sm:pb-24 lg:px-8 lg:pt-32">
-        <div className="grid w-full items-center gap-14 lg:grid-cols-[1fr_0.8fr] lg:gap-8">
-          {/* Copy */}
-          <motion.div
-            className="relative z-10 max-w-3xl"
-            initial="hidden"
-            animate="visible"
-            variants={reveal}
-          >
-            {/* Status */}
+      <div className="relative z-10 mx-auto flex min-h-[100svh] max-w-7xl items-center px-5 pb-16 pt-28 sm:px-6 sm:pb-20 sm:pt-32 lg:px-8">
+        <div className="grid w-full gap-10 lg:grid-cols-[1fr_0.55fr] lg:items-end">
+          {/* Main content */}
+          <div className="max-w-4xl">
             <motion.div
-              className="mb-7 inline-flex items-center gap-2.5 rounded-full border border-primary/15 bg-primary/[0.045] px-3.5 py-2 backdrop-blur-sm"
-              initial={{ opacity: 0, y: 10 }}
+              initial={{ opacity: 0, y: 18 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{
-                duration: 0.6,
+                duration: 0.7,
                 delay: 0.1,
+                ease: [0.16, 1, 0.3, 1],
               }}
             >
-              <span className="relative flex h-2 w-2">
-                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-40" />
-                <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-400" />
-              </span>
+              <div className="flex flex-wrap items-center gap-3">
+                <span className="inline-flex items-center gap-2 rounded-full border border-primary/15 bg-primary/[0.045] px-3 py-1.5 font-mono text-[8px] uppercase tracking-[0.15em] text-primary">
+                  <span className="h-1.5 w-1.5 animate-pulse-soft rounded-full bg-primary" />
+                  Available for opportunities
+                </span>
 
-              <span className="font-mono text-[9px] uppercase tracking-[0.16em] text-foreground-muted">
-                Senior RPA Consultant · Solution Architect
-              </span>
+                <span className="inline-flex items-center gap-1.5 font-mono text-[8px] uppercase tracking-[0.13em] text-foreground-subtle">
+                  <MapPin size={11} />
+                  {profile.contact.location}
+                </span>
+              </div>
             </motion.div>
 
-            {/* Eyebrow */}
             <motion.p
-              className="mb-5 font-mono text-[10px] uppercase tracking-[0.24em] text-primary"
-              initial="hidden"
-              animate="visible"
-              variants={reveal}
+              className="mt-8 font-mono text-[9px] uppercase tracking-[0.22em] text-primary sm:mt-10"
+              initial={{ opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
               transition={{
-                delay: 0.15,
+                duration: 0.65,
+                delay: 0.18,
+                ease: [0.16, 1, 0.3, 1],
               }}
             >
-              Enterprise automation · RPA · Architecture
+              RPA · Automation · Solution Architecture
             </motion.p>
 
-            {/* Heading */}
             <motion.h1
-              className="max-w-4xl text-balance text-[clamp(2.8rem,7vw,6.5rem)] font-semibold leading-[0.94] tracking-[-0.055em] text-foreground"
-              initial="hidden"
-              animate="visible"
-              variants={reveal}
+              className="mt-4 max-w-4xl text-[clamp(3rem,8vw,7.5rem)] font-semibold leading-[0.9] tracking-[-0.06em] text-foreground"
+              initial={{ opacity: 0, y: 22 }}
+              animate={{ opacity: 1, y: 0 }}
               transition={{
-                delay: 0.2,
+                duration: 0.8,
+                delay: 0.24,
+                ease: [0.16, 1, 0.3, 1],
               }}
             >
-              I turn complex processes into{" "}
-              <span className="bg-gradient-to-r from-primary via-cyan-200 to-secondary bg-clip-text text-transparent">
-                intelligent automation.
-              </span>
+              {profile.name}
             </motion.h1>
 
-            {/* Description */}
-            <motion.p
-              className="mt-7 max-w-2xl text-sm leading-7 text-foreground-muted sm:mt-8 sm:text-base sm:leading-8"
-              initial="hidden"
-              animate="visible"
-              variants={reveal}
+            <motion.h2
+              className="mt-5 max-w-2xl text-lg font-medium tracking-tight text-foreground-muted sm:text-xl lg:text-2xl"
+              initial={{ opacity: 0, y: 18 }}
+              animate={{ opacity: 1, y: 0 }}
               transition={{
-                delay: 0.3,
+                duration: 0.7,
+                delay: 0.32,
+                ease: [0.16, 1, 0.3, 1],
               }}
             >
-              {profile.name} is an experienced IT professional focused on
-              enterprise RPA, automation architecture and technology
-              solutions — connecting business problems with scalable technical
-              delivery.
+              {profile.title}
+            </motion.h2>
+
+            <motion.p
+              className="mt-5 max-w-2xl text-sm leading-7 text-foreground-subtle sm:text-base sm:leading-8"
+              initial={{ opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{
+                duration: 0.7,
+                delay: 0.4,
+                ease: [0.16, 1, 0.3, 1],
+              }}
+            >
+              {profile.tagline}
             </motion.p>
 
-            {/* CTA */}
+            {/* CTAs */}
             <motion.div
               className="mt-8 flex flex-col gap-3 sm:flex-row"
-              initial="hidden"
-              animate="visible"
-              variants={reveal}
+              initial={{ opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
               transition={{
-                delay: 0.4,
+                duration: 0.7,
+                delay: 0.48,
+                ease: [0.16, 1, 0.3, 1],
               }}
             >
               <a
                 href="#projects"
-                className="group inline-flex items-center justify-center gap-2 rounded-full bg-primary px-5 py-3 text-xs font-semibold text-slate-950 transition-all duration-300 hover:bg-primary-bright hover:shadow-[0_0_35px_rgba(34,211,238,0.18)]"
+                className="group inline-flex items-center justify-center gap-2 rounded-full bg-primary px-5 py-3 text-xs font-semibold text-slate-950 transition-all duration-300 hover:bg-primary-bright hover:shadow-[0_0_40px_rgba(34,211,238,0.18)]"
               >
                 Explore selected work
 
@@ -166,102 +139,67 @@ export function Hero() {
 
               <a
                 href="#contact"
-                className="inline-flex items-center justify-center gap-2 rounded-full border border-border bg-white/[0.02] px-5 py-3 text-xs font-medium text-foreground-muted backdrop-blur-sm transition-all duration-300 hover:border-primary/20 hover:bg-primary/[0.04] hover:text-foreground"
+                className="inline-flex items-center justify-center rounded-full border border-border bg-white/[0.02] px-5 py-3 text-xs font-medium text-foreground-muted transition-all duration-300 hover:border-primary/20 hover:bg-primary/[0.04] hover:text-foreground"
               >
-                Let's talk
+                Start a conversation
               </a>
             </motion.div>
+          </div>
 
-            {/* Metadata */}
-            <motion.div
-              className="mt-10 flex flex-wrap gap-x-7 gap-y-3"
-              initial="hidden"
-              animate="visible"
-              variants={reveal}
-              transition={{
-                delay: 0.5,
-              }}
-            >
-              <div className="flex items-center gap-2 text-[10px] text-foreground-subtle">
-                <BriefcaseBusiness size={13} className="text-primary" />
-                <span>6+ years in IT & automation</span>
-              </div>
-
-              <div className="flex items-center gap-2 text-[10px] text-foreground-subtle">
-                <MapPin size={13} className="text-primary" />
-                <span>{profile.contact.location}</span>
-              </div>
-            </motion.div>
-          </motion.div>
-
-          {/* 3D visual anchor */}
+          {/* Stats */}
           <motion.div
-            className="relative hidden h-[520px] lg:block"
-            initial={{
-              opacity: 0,
-              scale: 0.96,
-            }}
-            animate={{
-              opacity: 1,
-              scale: 1,
-            }}
+            className="hidden lg:block"
+            initial={{ opacity: 0, x: 18 }}
+            animate={{ opacity: 1, x: 0 }}
             transition={{
-              duration: 1,
-              delay: 0.25,
+              duration: 0.75,
+              delay: 0.55,
               ease: [0.16, 1, 0.3, 1],
             }}
           >
-            <div className="absolute inset-0">
-              {!reducedMotion && <PortfolioScene />}
-            </div>
-
-            {/* Floating technical label */}
-            <div className="absolute right-0 top-[18%] rounded-2xl border border-primary/10 bg-background/70 px-4 py-3 shadow-2xl shadow-cyan-950/10 backdrop-blur-md">
-              <p className="font-mono text-[8px] uppercase tracking-[0.16em] text-foreground-subtle">
-                Architecture
+            <div className="ml-auto max-w-sm rounded-2xl border border-border bg-background/55 p-5 backdrop-blur-md">
+              <p className="font-mono text-[8px] uppercase tracking-[0.18em] text-primary">
+                At a glance
               </p>
 
-              <p className="mt-1 text-xs font-medium text-foreground">
-                Automation systems
-              </p>
-            </div>
+              <div className="mt-5 grid grid-cols-2 gap-2">
+                {profile.stats.map((stat) => (
+                  <div
+                    key={stat.label}
+                    className="rounded-xl border border-border bg-white/[0.015] p-4"
+                  >
+                    <p className="text-lg font-semibold tracking-tight text-foreground">
+                      {stat.value}
+                    </p>
 
-            <div className="absolute bottom-[16%] left-0 rounded-2xl border border-border bg-background/70 px-4 py-3 shadow-2xl backdrop-blur-md">
-              <p className="font-mono text-[8px] uppercase tracking-[0.16em] text-foreground-subtle">
-                Focus
-              </p>
-
-              <p className="mt-1 text-xs font-medium text-primary">
-                RPA · Integration · Scale
-              </p>
+                    <p className="mt-1 font-mono text-[7px] uppercase tracking-[0.1em] text-foreground-subtle">
+                      {stat.label}
+                    </p>
+                  </div>
+                ))}
+              </div>
             </div>
           </motion.div>
         </div>
       </div>
 
-      {/* Scroll indicator */}
+      {/* Scroll cue */}
       <motion.a
         href="#about"
         aria-label="Scroll to About section"
-        className="absolute bottom-7 left-1/2 z-20 hidden -translate-x-1/2 flex-col items-center gap-3 text-foreground-subtle transition-colors hover:text-primary sm:flex"
-        animate={
-          reducedMotion
-            ? undefined
-            : {
-                y: [0, 6, 0],
-              }
-        }
+        className="absolute bottom-6 left-1/2 z-20 flex -translate-x-1/2 flex-col items-center gap-2 text-foreground-subtle transition-colors hover:text-primary"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
         transition={{
-          duration: 2,
-          repeat: Infinity,
-          ease: "easeInOut",
+          duration: 0.8,
+          delay: 1,
         }}
       >
-        <span className="font-mono text-[8px] uppercase tracking-[0.2em]">
+        <span className="font-mono text-[7px] uppercase tracking-[0.2em]">
           Scroll
         </span>
 
-        <ArrowDown size={14} strokeWidth={1.4} />
+        <ArrowDown size={13} />
       </motion.a>
     </section>
   );
