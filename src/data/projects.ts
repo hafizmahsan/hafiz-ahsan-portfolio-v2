@@ -1,227 +1,331 @@
 export type Project = {
   id: string;
   title: string;
+  shortTitle: string;
   category: string;
-  shortDescription: string;
-  description: string;
   year: string;
-  status: "Production" | "Concept" | "Prototype" | "Confidential";
   featured: boolean;
+
+  description: string;
+  problem: string;
+  solution: string;
+
+  role: string;
+
   technologies: string[];
-  capabilities: string[];
-  outcomes: string[];
-  visual: {
-    accent: "cyan" | "violet" | "emerald" | "amber";
-    pattern: "network" | "grid" | "orbital" | "flow";
-  };
+
+  impact: {
+    value: string;
+    label: string;
+  }[];
+
+  tags: string[];
+
   links?: {
     live?: string;
     github?: string;
+    caseStudy?: string;
   };
 };
 
 export const projects: Project[] = [
   {
     id: "enterprise-rpa-automation",
-    title: "Enterprise RPA Automation",
+    title: "Enterprise RPA Automation Platform",
+    shortTitle: "RPA Platform",
     category: "Enterprise Automation",
-    shortDescription:
-      "Automation solutions designed to reduce repetitive operational work and improve process consistency across enterprise environments.",
-    description:
-      "A representative enterprise automation initiative covering process discovery, automation design, development, testing and production support. The final portfolio version will replace this description with the specific publicly shareable project information.",
-    year: "2024 — Present",
-    status: "Confidential",
+    year: "2026",
     featured: true,
+
+    description:
+      "A scalable enterprise automation ecosystem designed to streamline repetitive business processes, improve operational efficiency and provide reliable unattended automation.",
+
+    problem:
+      "Manual and repetitive business processes created operational overhead, inconsistent execution and unnecessary dependency on human intervention.",
+
+    solution:
+      "Designed and delivered automation workflows with structured exception handling, reusable components, monitoring considerations and enterprise deployment practices.",
+
+    role: "Senior RPA Consultant & Solution Architect",
+
     technologies: [
       "RPA",
       "Process Automation",
-      "Enterprise Systems",
-      "API Integration",
-    ],
-    capabilities: [
-      "Process Discovery",
-      "Automation Design",
-      "Development",
-      "Production Support",
-    ],
-    outcomes: [
-      "Reduced manual intervention",
-      "Improved process consistency",
-      "Standardized automation delivery",
-    ],
-    visual: {
-      accent: "cyan",
-      pattern: "network",
-    },
-  },
-
-  {
-    id: "automation-solution-architecture",
-    title: "Automation Solution Architecture",
-    category: "Solution Architecture",
-    shortDescription:
-      "Architecture-led approach to designing scalable automation solutions around enterprise processes, applications and integrations.",
-    description:
-      "A solution architecture concept representing the transition from individual automation workflows toward structured, maintainable enterprise automation capabilities.",
-    year: "2023 — Present",
-    status: "Production",
-    featured: true,
-    technologies: [
       "Solution Architecture",
-      "RPA",
-      "APIs",
-      "System Integration",
-    ],
-    capabilities: [
-      "Technical Design",
-      "Integration Architecture",
-      "Process Analysis",
-      "Scalability Planning",
-    ],
-    outcomes: [
-      "More maintainable automation",
-      "Clearer technical ownership",
-      "Improved integration strategy",
-    ],
-    visual: {
-      accent: "violet",
-      pattern: "orbital",
-    },
-  },
-
-  {
-    id: "etisalat-automation-engagement",
-    title: "Enterprise Client Automation Engagement",
-    category: "RPA Development",
-    shortDescription:
-      "Enterprise automation work delivered through an outsourced technology engagement, combining RPA development with solution-oriented technical responsibilities.",
-    description:
-      "A portfolio representation of the enterprise client engagement handled through TechVista Systems. Specific client processes and implementation details should only be published where they are publicly shareable.",
-    year: "2021 — 2024",
-    status: "Confidential",
-    featured: true,
-    technologies: [
-      "RPA",
-      "Automation Development",
-      "Solution Design",
       "Enterprise Integration",
-    ],
-    capabilities: [
-      "RPA Development",
-      "Technical Design",
-      "Client Collaboration",
-      "Automation Support",
-    ],
-    outcomes: [
-      "Enterprise process automation",
-      "Improved operational workflows",
-      "Technical solution delivery",
-    ],
-    visual: {
-      accent: "emerald",
-      pattern: "flow",
-    },
-  },
-
-  {
-    id: "process-optimization",
-    title: "Process Optimization Framework",
-    category: "Process Engineering",
-    shortDescription:
-      "A structured approach to identifying automation opportunities and turning inefficient manual processes into measurable improvement opportunities.",
-    description:
-      "A conceptual framework for evaluating processes based on repeatability, volume, complexity, business impact and automation suitability.",
-    year: "2022 — Present",
-    status: "Concept",
-    featured: false,
-    technologies: [
-      "Process Analysis",
-      "RPA",
-      "Business Analysis",
-      "Automation Strategy",
-    ],
-    capabilities: [
-      "Process Assessment",
-      "Opportunity Identification",
-      "Automation Feasibility",
-      "Continuous Improvement",
-    ],
-    outcomes: [
-      "Better automation prioritization",
-      "Improved discovery process",
-      "Clearer business-to-technology alignment",
-    ],
-    visual: {
-      accent: "amber",
-      pattern: "grid",
-    },
-  },
-
-  {
-    id: "integration-automation-platform",
-    title: "Integration-Driven Automation",
-    category: "Integration",
-    shortDescription:
-      "An architecture concept connecting automation workflows with APIs, enterprise applications and human decision points.",
-    description:
-      "A conceptual platform demonstrating how RPA can work alongside APIs and enterprise applications rather than operating as isolated desktop automation.",
-    year: "2023 — Present",
-    status: "Prototype",
-    featured: false,
-    technologies: [
-      "APIs",
-      "RPA",
-      "System Integration",
       "Workflow Automation",
     ],
-    capabilities: [
-      "API Integration",
-      "Workflow Design",
-      "Exception Handling",
+
+    impact: [
+      {
+        value: "24/7",
+        label: "Automation capability",
+      },
+      {
+        value: "↓",
+        label: "Manual effort",
+      },
+      {
+        value: "↑",
+        label: "Process consistency",
+      },
+    ],
+
+    tags: [
+      "RPA",
+      "Enterprise",
+      "Automation",
       "Architecture",
     ],
-    outcomes: [
-      "Reduced point-to-point dependencies",
-      "Improved integration flexibility",
-      "Better automation orchestration",
-    ],
-    visual: {
-      accent: "cyan",
-      pattern: "network",
-    },
   },
 
   {
-    id: "automation-portfolio-lab",
-    title: "Automation Architecture Lab",
-    category: "Experimental",
-    shortDescription:
-      "An experimental space for exploring modern automation patterns, architecture concepts and emerging technologies.",
+    id: "insurance-automation",
+    title: "Insurance Operations Automation",
+    shortTitle: "Insurance Automation",
+    category: "Insurance",
+    year: "2025",
+    featured: true,
+
     description:
-      "A continuously evolving collection of technical experiments and proof-of-concept ideas exploring how enterprise automation can be combined with modern software engineering practices.",
-    year: "Ongoing",
-    status: "Prototype",
-    featured: false,
+      "Enterprise automation solutions supporting insurance operations through process digitization, workflow automation and integration across business applications.",
+
+    problem:
+      "High-volume operational workflows required repetitive manual interaction across multiple enterprise systems.",
+
+    solution:
+      "Designed automation workflows that orchestrate business processes across applications while incorporating validation, exception handling and operational controls.",
+
+    role: "Senior RPA Consultant",
+
     technologies: [
+      "RPA",
+      "Insurance Operations",
+      "Process Automation",
+      "Enterprise Applications",
+      "Workflow Design",
+    ],
+
+    impact: [
+      {
+        value: "High",
+        label: "Process volume",
+      },
+      {
+        value: "Multi-system",
+        label: "Automation",
+      },
+      {
+        value: "24/7",
+        label: "Execution potential",
+      },
+    ],
+
+    tags: [
+      "Insurance",
+      "RPA",
       "Automation",
+      "Digital Transformation",
+    ],
+  },
+
+  {
+    id: "telecom-rpa",
+    title: "Telecom Enterprise RPA Solutions",
+    shortTitle: "Telecom RPA",
+    category: "Telecom",
+    year: "2023",
+    featured: true,
+
+    description:
+      "Enterprise RPA solutions developed for telecom operations, automating repetitive workflows and integrating processes across complex enterprise environments.",
+
+    problem:
+      "Operational teams relied on repetitive application-based workflows involving multiple systems and manual data movement.",
+
+    solution:
+      "Designed and developed automation workflows capable of handling structured business processes while improving consistency and reducing repetitive human interaction.",
+
+    role: "Senior RPA Developer & Solution Architect",
+
+    technologies: [
+      "RPA",
+      "Telecom",
+      "Solution Architecture",
+      "Process Automation",
+      "Enterprise Systems",
+    ],
+
+    impact: [
+      {
+        value: "Enterprise",
+        label: "Scale",
+      },
+      {
+        value: "Multi-system",
+        label: "Integration",
+      },
+      {
+        value: "Automated",
+        label: "Repetitive workflows",
+      },
+    ],
+
+    tags: [
+      "Telecom",
+      "RPA",
       "Architecture",
-      "APIs",
-      "Modern Web",
+      "Automation",
     ],
-    capabilities: [
-      "Prototyping",
-      "Technical Research",
-      "Architecture Experiments",
-      "Proof of Concept",
+  },
+
+  {
+    id: "automation-framework",
+    title: "Reusable RPA Automation Framework",
+    shortTitle: "RPA Framework",
+    category: "Engineering",
+    year: "2023",
+    featured: false,
+
+    description:
+      "A reusable automation architecture designed to standardize development patterns, improve maintainability and accelerate delivery of enterprise RPA solutions.",
+
+    problem:
+      "Automation projects developed independently can create inconsistent patterns, duplicated logic and increased maintenance effort.",
+
+    solution:
+      "Introduced reusable development patterns, standardized components, structured exception handling and clearer separation between business logic and automation infrastructure.",
+
+    role: "RPA Developer & Solution Architect",
+
+    technologies: [
+      "RPA",
+      "Software Architecture",
+      "Reusable Components",
+      "Exception Handling",
+      "Automation Engineering",
     ],
-    outcomes: [
-      "Technology exploration",
-      "Reusable architecture patterns",
-      "Continuous learning",
+
+    impact: [
+      {
+        value: "Reusable",
+        label: "Architecture",
+      },
+      {
+        value: "Faster",
+        label: "Development",
+      },
+      {
+        value: "Lower",
+        label: "Maintenance effort",
+      },
     ],
-    visual: {
-      accent: "violet",
-      pattern: "orbital",
-    },
+
+    tags: [
+      "Engineering",
+      "Framework",
+      "RPA",
+      "Architecture",
+    ],
+  },
+
+  {
+    id: "process-discovery",
+    title: "Automation Opportunity Discovery",
+    shortTitle: "Process Discovery",
+    category: "Consulting",
+    year: "2024",
+    featured: false,
+
+    description:
+      "A structured approach for identifying, evaluating and prioritizing business processes suitable for automation.",
+
+    problem:
+      "Organizations often have many potential automation opportunities but limited visibility into which processes should be automated first.",
+
+    solution:
+      "Applied process analysis and automation assessment techniques to evaluate process characteristics, complexity, business value and automation feasibility.",
+
+    role: "Senior RPA Consultant",
+
+    technologies: [
+      "Process Discovery",
+      "RPA",
+      "Business Analysis",
+      "Automation Assessment",
+      "Solution Design",
+    ],
+
+    impact: [
+      {
+        value: "Prioritized",
+        label: "Automation pipeline",
+      },
+      {
+        value: "Data-driven",
+        label: "Assessment",
+      },
+      {
+        value: "Higher",
+        label: "Automation focus",
+      },
+    ],
+
+    tags: [
+      "Consulting",
+      "Discovery",
+      "RPA",
+      "Strategy",
+    ],
+  },
+
+  {
+    id: "automation-monitoring",
+    title: "Enterprise Automation Operations",
+    shortTitle: "Automation Ops",
+    category: "Operations",
+    year: "2025",
+    featured: false,
+
+    description:
+      "Operational practices and automation support mechanisms designed to improve reliability, observability and maintainability of production RPA solutions.",
+
+    problem:
+      "Production automation requires more than development; unattended processes need monitoring, exception management and operational discipline.",
+
+    solution:
+      "Established structured operational practices around automation execution, exception handling, issue analysis and continuous improvement.",
+
+    role: "Senior RPA Consultant",
+
+    technologies: [
+      "RPA Operations",
+      "Monitoring",
+      "Exception Management",
+      "Production Support",
+      "Automation Governance",
+    ],
+
+    impact: [
+      {
+        value: "Improved",
+        label: "Reliability",
+      },
+      {
+        value: "Structured",
+        label: "Operations",
+      },
+      {
+        value: "Continuous",
+        label: "Improvement",
+      },
+    ],
+
+    tags: [
+      "Operations",
+      "RPA",
+      "Monitoring",
+      "Governance",
+    ],
   },
 ];
