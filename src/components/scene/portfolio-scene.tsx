@@ -8,6 +8,7 @@ import {
 } from "@react-three/drei";
 import { useEffect, useMemo, useRef } from "react";
 import * as THREE from "three";
+import { useReducedMotion } from "@/hooks/use-reduced-motion";
 import { useScrollProgress } from "@/hooks/use-scroll-progress";
 
 type Node = {
@@ -44,6 +45,7 @@ function NetworkCore() {
 
   const mouse = useMousePosition();
   const scrollProgress = useScrollProgress();
+  const reducedMotion = useReducedMotion();
 
   const nodes = useMemo<Node[]>(
     () => [
@@ -64,65 +66,106 @@ function NetworkCore() {
     const scroll = scrollProgress.current;
 
     /*
-     * Mouse interaction
+     * Reduced-motion visitors still get the 3D artwork,
+     * but continuous animation and cursor movement are removed.
      */
-    const targetRotationY =
-      mouse.current.x * 0.28;
+    if (reducedMotion) {
+      groupRef.current.rotation.y = THREE.MathUtils.lerp(
+        groupRef.current.rotation.y,
+        0.12,
+        0.03,
+      );
 
-    const targetRotationX =
-      mouse.current.y * 0.16;
+      groupRef.current.rotation.x = THREE.MathUtils.lerp(
+        groupRef.current.rotation.x,
+        0,
+        0.03,
+      );
+
+      groupRef.current.position.x = THREE.MathUtils.lerp(
+        groupRef.current.position.x,
+        0,
+        0.03,
+      );
+
+      groupRef.current.position.y = THREE.MathUtils.lerp(
+        groupRef.current.position.y,
+        0,
+        0.03,
+      );
+
+      groupRef.current.position.z = THREE.MathUtils.lerp(
+        groupRef.current.position.z,
+        0,
+        0.03,
+      );
+
+      groupRef.current.scale.lerp(
+        new THREE.Vector3(1, 1, 1),
+        0.03,
+      );
+
+      return;
+    }
 
     /*
-     * Scroll interaction
-     *
-     * The scene slowly becomes more expansive
-     * as the visitor travels through the page.
+     * Mouse interaction.
      */
-    const targetScale =
-      THREE.MathUtils.lerp(1, 1.12, scroll);
+    const targetRotationY = mouse.current.x * 0.28;
+    const targetRotationX = mouse.current.y * 0.16;
 
-    const targetY =
-      THREE.MathUtils.lerp(0, -0.18, scroll);
+    /*
+     * Scroll interaction.
+     */
+    const targetScale = THREE.MathUtils.lerp(
+      1,
+      1.12,
+      scroll,
+    );
 
-    const targetZ =
-      THREE.MathUtils.lerp(0, -0.35, scroll);
+    const targetY = THREE.MathUtils.lerp(
+      0,
+      -0.18,
+      scroll,
+    );
 
-    groupRef.current.rotation.y =
-      THREE.MathUtils.lerp(
-        groupRef.current.rotation.y,
-        targetRotationY +
-          state.clock.elapsedTime * 0.08 +
-          scroll * Math.PI * 0.35,
-        0.025,
-      );
+    const targetZ = THREE.MathUtils.lerp(
+      0,
+      -0.35,
+      scroll,
+    );
 
-    groupRef.current.rotation.x =
-      THREE.MathUtils.lerp(
-        groupRef.current.rotation.x,
-        targetRotationX + scroll * 0.12,
-        0.025,
-      );
+    groupRef.current.rotation.y = THREE.MathUtils.lerp(
+      groupRef.current.rotation.y,
+      targetRotationY +
+        state.clock.elapsedTime * 0.08 +
+        scroll * Math.PI * 0.35,
+      0.025,
+    );
 
-    groupRef.current.position.x =
-      THREE.MathUtils.lerp(
-        groupRef.current.position.x,
-        mouse.current.x * 0.12,
-        0.02,
-      );
+    groupRef.current.rotation.x = THREE.MathUtils.lerp(
+      groupRef.current.rotation.x,
+      targetRotationX + scroll * 0.12,
+      0.025,
+    );
 
-    groupRef.current.position.y =
-      THREE.MathUtils.lerp(
-        groupRef.current.position.y,
-        targetY + mouse.current.y * 0.08,
-        0.02,
-      );
+    groupRef.current.position.x = THREE.MathUtils.lerp(
+      groupRef.current.position.x,
+      mouse.current.x * 0.12,
+      0.02,
+    );
 
-    groupRef.current.position.z =
-      THREE.MathUtils.lerp(
-        groupRef.current.position.z,
-        targetZ,
-        0.02,
-      );
+    groupRef.current.position.y = THREE.MathUtils.lerp(
+      groupRef.current.position.y,
+      targetY + mouse.current.y * 0.08,
+      0.02,
+    );
+
+    groupRef.current.position.z = THREE.MathUtils.lerp(
+      groupRef.current.position.z,
+      targetZ,
+      0.02,
+    );
 
     groupRef.current.scale.lerp(
       new THREE.Vector3(
@@ -134,7 +177,7 @@ function NetworkCore() {
     );
 
     /*
-     * Very subtle floating motion.
+     * Gentle ambient floating.
      */
     groupRef.current.position.y +=
       Math.sin(state.clock.elapsedTime * 0.7) *
